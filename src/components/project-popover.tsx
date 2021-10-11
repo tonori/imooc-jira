@@ -4,9 +4,14 @@ import { Popover, List, Collapse, Button } from "antd";
 import styled from "@emotion/styled";
 
 // Hooks
+import { useDispatch } from "react-redux";
 import { useGetProject } from "page-hooks/project";
 
+// redux action
+import { projectListActions } from "pages/project-list/project-list.slice";
+
 const ProjectPopover = () => {
+  const dispatch = useDispatch();
   const { response: projects } = useGetProject();
   const pinnerProjects = projects?.filter((project) => project.pin);
 
@@ -25,7 +30,14 @@ const ProjectPopover = () => {
           </List>
         </Collapse.Panel>
         <Collapse.Panel header="快捷操作" key="shortcuts">
-          <Button type="link">新建项目</Button>
+          <Button
+            type="link"
+            onClick={() => {
+              dispatch(projectListActions.openModal());
+            }}
+          >
+            新建项目
+          </Button>
         </Collapse.Panel>
       </Collapse>
     </ContentContainer>

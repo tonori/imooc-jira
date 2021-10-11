@@ -1,24 +1,25 @@
 // Components
-import { Modal, ModalProps } from "antd";
+import { Modal } from "antd";
 
-// Types
-import { Dispatch, SetStateAction } from "react";
+// Hooks
+import { useSelector, useDispatch } from "react-redux";
 
-interface ProjectModalProps extends ModalProps {
-  projectModalOpen: boolean;
-  setProjectModalOpen: Dispatch<SetStateAction<boolean>>;
-}
+// redux action
+import {
+  selectModalOpen,
+  projectListActions,
+} from "pages/project-list/project-list.slice";
 
-const ProjectModal = (props: ProjectModalProps) => {
+const ProjectModal = () => {
+  const dispatch = useDispatch();
+  const modalOpen = useSelector(selectModalOpen);
+
   const closeModal = () => {
-    props.setProjectModalOpen(() => false);
+    dispatch(projectListActions.closeModal());
   };
+
   return (
-    <Modal
-      destroyOnClose
-      visible={props.projectModalOpen}
-      onCancel={closeModal}
-    >
+    <Modal destroyOnClose visible={modalOpen} onCancel={closeModal}>
       <span>Project Modal</span>
     </Modal>
   );

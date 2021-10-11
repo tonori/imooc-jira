@@ -8,7 +8,6 @@ import ProjectPopover from "components/project-popover";
 import ProjectModal from "pages/project-list/project-modal";
 
 // Hooks
-import { useState } from "react";
 import { useAuth } from "context/auth-content";
 
 // Resources
@@ -56,7 +55,6 @@ const PageHeader = () => {
 };
 
 const AuthenticatedApp = () => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
       <PageHeader />
@@ -67,10 +65,7 @@ const AuthenticatedApp = () => {
           <Redirect to="/projects" from="/" />
         </Switch>
       </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        setProjectModalOpen={setProjectModalOpen}
-      />
+      <ProjectModal />
     </Container>
   );
 };
