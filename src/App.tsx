@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Components
+import FullPageLoading from "components/full-page-loading";
+import UnauthenticatedApp from "./unauthenticated-app";
+import AuthenticatedApp from "./authenticated-app";
 
-function App() {
+import { getToken } from "context/auth-provider";
+// Hooks
+import { useAuth } from "context/auth-content";
+
+const App = () => {
+  const { user } = useAuth();
+  if (!user && getToken()) return <FullPageLoading />;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // 如果 Context user 存在（不存在的话整个 Context 都是 undefined） 则渲染 Authenticated 组件 否则渲染 Unauthenticted 组件
+    user ? <AuthenticatedApp /> : <UnauthenticatedApp />
   );
-}
-
+};
 export default App;
