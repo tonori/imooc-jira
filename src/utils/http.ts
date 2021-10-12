@@ -1,11 +1,10 @@
 import qs from "qs";
-import { useAuth } from "context/auth-content";
-// import * as Auth from 'context/auth-provider'
+import { useAuth } from "auth";
 
 import { message } from "antd";
 
 export interface Config extends RequestInit {
-  token?: string;
+  token?: string | null;
   data?: object;
 }
 

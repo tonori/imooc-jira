@@ -3,16 +3,20 @@ import FullPageLoading from "components/full-page-loading";
 import UnauthenticatedApp from "./unauthenticated-app";
 import AuthenticatedApp from "./authenticated-app";
 
-import { getToken } from "context/auth-provider";
 // Hooks
-import { useAuth } from "context/auth-content";
+import { useAuth } from "auth";
+
+// utils
+import { getToken } from "auth/auth-provider";
 
 const App = () => {
-  const { user } = useAuth();
-  if (!user && getToken()) return <FullPageLoading />;
-  return (
-    // 如果 Context user 存在（不存在的话整个 Context 都是 undefined） 则渲染 Authenticated 组件 否则渲染 Unauthenticted 组件
-    user ? <AuthenticatedApp /> : <UnauthenticatedApp />
-  );
+  const { initialUserInfo, user } = useAuth();
+
+  if (!user && getToken()) {
+    initialUserInfo();
+    return <FullPageLoading />;
+  }
+
+  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 };
 export default App;

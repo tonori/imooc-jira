@@ -2,14 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b68cf5fc-597f-41f5-b7aa-950999fb7e21" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/src/auth/auth.slice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/auth/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/authenticated-app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authenticated-app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/project-popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project-popover.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/project-list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/auth-content.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/auth-provider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/auth-provider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/register.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/project-list/project-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/project-modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/http.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/use-async.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/use-async.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/use-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/use-request.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +93,7 @@
       <workItem from="1632396792290" duration="1482000" />
       <workItem from="1632585394576" duration="35856000" />
       <workItem from="1632840804474" duration="39255000" />
-      <workItem from="1633162191743" duration="124616000" />
+      <workItem from="1633162191743" duration="134715000" />
     </task>
     <task id="LOCAL-00001" summary="sync: 同步项目">
       <created>1633936633917</created>
@@ -94,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633936633917</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: 使用 redux-toolkit 管理 projectList 的 modal 开关">
+      <created>1633941856624</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1633941856624</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,7 +117,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sync: 同步项目" />
-    <option name="LAST_COMMIT_MESSAGE" value="sync: 同步项目" />
+    <MESSAGE value="feat: 使用 redux-toolkit 管理 projectList 的 modal 开关" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 使用 redux-toolkit 管理 projectList 的 modal 开关" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

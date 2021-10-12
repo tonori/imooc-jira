@@ -19,7 +19,13 @@ const ProjectModal = () => {
   };
 
   return (
-    <Modal destroyOnClose visible={modalOpen} onCancel={closeModal}>
+    <Modal
+      destroyOnClose
+      visible={modalOpen}
+      onCancel={closeModal}
+      okText="确认"
+      cancelText="退出"
+    >
       <span>Project Modal</span>
     </Modal>
   );

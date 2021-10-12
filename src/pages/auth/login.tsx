@@ -4,7 +4,7 @@ import { Title } from "unauthenticated-app";
 import { Form, Input, Button } from "antd";
 
 // Hooks
-import { useAuth } from "context/auth-content";
+import { useAuth } from "auth";
 import useAsync from "utils/use-async";
 
 const LoginScreen = () => {

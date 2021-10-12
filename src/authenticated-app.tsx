@@ -8,7 +8,7 @@ import ProjectPopover from "components/project-popover";
 import ProjectModal from "pages/project-list/project-modal";
 
 // Hooks
-import { useAuth } from "context/auth-content";
+import { useAuth } from "auth";
 
 // Resources
 import { ReactComponent as SortwareLogo } from "assets/software-logo.svg";

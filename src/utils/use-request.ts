@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { http, Config } from "utils/http";
 import useIsUnmounted from "utils/use-is-unmounted";
-import * as Auth from "context/auth-provider";
+import { useAuth } from "auth";
 import { message } from "antd";
 
 export interface RequestProps extends Config {
@@ -9,6 +9,7 @@ export interface RequestProps extends Config {
 }
 
 const useRequest = <P>() => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<P>();
   const [error, setError] = useState(null);
@@ -24,7 +25,7 @@ const useRequest = <P>() => {
 
     const httpConfig = {
       data,
-      token: Auth.getToken() || undefined,
+      token: user?.token,
       ...customConfig,
     };
 

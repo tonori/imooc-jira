@@ -51,14 +51,14 @@ const useAsync = <D>(initialState?: State<D>) => {
         if (!isUnmounted.current) {
           setState({ ...state, status: "success" });
           setData(data);
-          return data;
+          return Promise.resolve(data);
         }
       })
       .catch((error) => {
         if (!isUnmounted.current) {
           setState({ ...state, status: "error" });
           setError(error);
-          return error;
+          return Promise.reject(error);
         }
       })
       .finally(() => {
