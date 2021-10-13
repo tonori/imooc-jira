@@ -1,8 +1,9 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, ReactNode, useState } from "react";
 import * as Auth from "./auth-provider";
 import useMount from "hooks/useMount";
 import useRequest from "hooks/useRequest";
 import { User } from "types";
+import { useQueryClient } from "react-query";
 
 interface AuthForm {
   username: string;
@@ -26,10 +27,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const { request } = useRequest();
   const token = Auth.getToken();
+  const queryClient = useQueryClient();
 
   const login = (form: AuthForm) => Auth.login(form).then(setUser);
-  const register = (form: AuthForm) => Auth.register(form);
-  const logout = () => Auth.logout().then(() => setUser(null));
+  const register = (form: AuthForm) => Auth.register(form).then(setUser);
+  const logout = () =>
+    Auth.logout().then(() => {
+      queryClient.clear();
+      setUser(null);
+    });
 
   // 页面初始化时如果 localStorage 中有 token，则尝试请求用户信息
   useMount(() => {
