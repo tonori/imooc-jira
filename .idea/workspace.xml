@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="48f488c8-1739-4a71-99d2-eccb2e53d49a" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks/useAuth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useHttp.ts" afterDir="false" />
+    <list default="true" id="48f488c8-1739-4a71-99d2-eccb2e53d49a" name="更改" comment="fix: 修复请求项目列表和 &quot;/me&quot; 接口时重复发送两遍的情况">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/authenticated-app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authenticated-app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/full-page-loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/full-page-loading.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/project-popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/project-popover.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/auth-content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/auth-content.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page-hooks/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page-hooks/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/boards/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/boards/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/project-list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-async.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-debounce.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-document-title.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-is-mounted.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-is-unmounted.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-mount.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-request.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/use-url-query-param.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +45,24 @@
       <option name="presentableId" value="Default" />
       <updated>1634102891740</updated>
       <workItem from="1634102893856" duration="1927000" />
+      <workItem from="1634105408160" duration="3909000" />
     </task>
+    <task id="LOCAL-00001" summary="style: 文件目录及 hook 文件命名变更">
+      <created>1634105481943</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1634105481943</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="style: 文件目录及 hook 文件命名变更" />
+    <MESSAGE value="fix: 修复请求项目列表和 &quot;/me&quot; 接口时重复发送两遍的情况" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 修复请求项目列表和 &quot;/me&quot; 接口时重复发送两遍的情况" />
   </component>
 </project>

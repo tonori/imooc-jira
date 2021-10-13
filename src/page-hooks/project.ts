@@ -1,20 +1,19 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 import useRequest, { RequestProps } from "hooks/useRequest";
 import { Project } from "types";
 
 export const useGetProject = (params?: Partial<Project>) => {
-  const { request, ...response } = useRequest<Project[]>();
+  const { request: _request, ...response } = useRequest<Project[]>();
 
-  useEffect(() => {
-    request({
+  const request = useCallback(() => {
+    _request({
       finalPoint: "/projects",
       method: "GET",
       data: params,
     });
-    // eslint-disable-next-line
-  }, []);
+  }, [params, _request]);
 
-  return { ...response };
+  return { request, ...response };
 };
 
 // 新增项目
