@@ -1,6 +1,6 @@
 // Components
-import { Switch, Route, Redirect } from "react-router";
-import { Dropdown, Menu, Button, message } from "antd";
+import { Redirect, Route, Switch } from "react-router";
+import { Button, Dropdown, Menu, message } from "antd";
 import styled from "@emotion/styled";
 import ProjectListScreen from "pages/project-list";
 import ProjectScreen from "pages/project";
@@ -8,7 +8,6 @@ import ProjectPopover from "pages/project-list/project-popover";
 import ProjectModal from "pages/project-list/project-modal";
 
 // Hooks
-import { useState } from "react";
 import useAuth from "hooks/useAuth";
 
 // Resources
@@ -56,21 +55,22 @@ const PageHeader = () => {
 };
 
 const AuthenticatedApp = () => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
       <PageHeader />
       <Main>
         <Switch>
           <Route exact path="/projects" component={ProjectListScreen} />
+          <Route
+            exact
+            path="/projects/create-project"
+            component={ProjectListScreen}
+          />
           <Route path="/projects/:projectId" component={ProjectScreen} />
           <Redirect to="/projects" from="/" />
         </Switch>
       </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        setProjectModalOpen={setProjectModalOpen}
-      />
+      <ProjectModal />
     </Container>
   );
 };

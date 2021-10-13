@@ -1,23 +1,18 @@
 // Components
-import { Modal, ModalProps } from "antd";
+import { Modal } from "antd";
 
-// Types
-import { Dispatch, SetStateAction } from "react";
+// Hooks
+import useProjectModal from "hooks/useProjectModal";
 
-interface ProjectModalProps extends ModalProps {
-  projectModalOpen: boolean;
-  setProjectModalOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const ProjectModal = (props: ProjectModalProps) => {
-  const closeModal = () => {
-    props.setProjectModalOpen(() => false);
-  };
+const ProjectModal = () => {
+  const { projectModalState, closeModal } = useProjectModal();
   return (
     <Modal
       destroyOnClose
-      visible={props.projectModalOpen}
+      visible={projectModalState}
       onCancel={closeModal}
+      okText="确定"
+      cancelText="推出"
     >
       <span>Project Modal</span>
     </Modal>

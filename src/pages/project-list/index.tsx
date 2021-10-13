@@ -1,6 +1,8 @@
 // Component
 import SearchForm from "./search-form";
 import List from "./list";
+import FlexBetween from "styled-components/FlexBetween";
+import { Button } from "antd";
 
 // Hooks
 import { useEffect, useMemo, useState } from "react";
@@ -9,6 +11,7 @@ import useDebounce from "hooks/useDebounce";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useUrlQueryParams from "hooks/useUrlQueryParam";
 import { useGetProject } from "page-hooks/project";
+import useProjectModal from "hooks/useProjectModal";
 
 // Utils
 import { cleanObject, stringToNumber } from "utils";
@@ -18,6 +21,7 @@ const ProjectList = () => {
 
   const client = useHttp();
   const [users, setUsers] = useState([]);
+  const { openModal } = useProjectModal();
 
   const [urlQueryParam, setUrlQueryParam] = useUrlQueryParams([
     "name",
@@ -43,17 +47,22 @@ const ProjectList = () => {
   useEffect(() => {
     setUrlQueryParam(queryParam);
     getProjectData();
+    // eslint-disable-next-line
   }, [queryParam]);
 
   useEffect(() => {
     client("/users").then((users) => {
       setUsers(users);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div>
-      <h1>项目列表</h1>
+      <FlexBetween>
+        <h1>项目列表</h1>
+        <Button onClick={openModal}>新建项目</Button>
+      </FlexBetween>
       <SearchForm param={param} setParam={setParam} users={users} />
       <List
         refreshDataFunc={getProjectData}
