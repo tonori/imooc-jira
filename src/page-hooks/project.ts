@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useHttp from "hooks/useHttp";
 import useUrlQueryParams from "hooks/useUrlQueryParam";
-import { Project } from "types";
 import { cleanObject, stringToNumber } from "utils";
-import useDebounce from "../hooks/useDebounce";
+import useDebounce from "hooks/useDebounce";
 import useOptimisticOption from "../hooks/useOptimisticOption";
+import { Project } from "types/project";
 
 // 获取项目列表页面的查询参数
 export const useProjectParam = () => {

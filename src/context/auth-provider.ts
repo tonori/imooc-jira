@@ -1,6 +1,6 @@
 // 此文件包含了请求 登录 / 注册接口 及 读取 / 写入 / 删除 存储在 localStorage 中的 token 的方法
 import { http } from "utils/http";
-import { User } from "types";
+import { User } from "types/user";
 
 const localStorageKey = "__auth_provider_token__";
 

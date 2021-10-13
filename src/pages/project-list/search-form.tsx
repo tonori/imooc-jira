@@ -1,6 +1,7 @@
 import { Form, Input } from "antd";
 import ProjectUserSelect from "components/projectUserSelect";
-import { Project, User } from "types";
+import { User } from "types/user";
+import { Project } from "types/project";
 
 interface SearchFormProps {
   param: Pick<Project, "name" | "personId">;

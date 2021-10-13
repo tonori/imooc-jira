@@ -2,8 +2,8 @@ import { createContext, ReactNode, useState } from "react";
 import * as Auth from "./auth-provider";
 import useMount from "hooks/useMount";
 import useRequest from "hooks/useRequest";
-import { User } from "types";
 import { useQueryClient } from "react-query";
+import { User } from "types/user";
 
 interface AuthForm {
   username: string;

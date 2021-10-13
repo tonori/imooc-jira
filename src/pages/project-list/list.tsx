@@ -11,11 +11,12 @@ import { useRouteMatch } from "react-router";
 import { useDeleteProject, useEditProject } from "page-hooks/project";
 
 // Types
-import { Project, User } from "types";
 import { TableProps } from "antd/es/table";
 
 // Utils
 import createDeleteProjectConfirm from "./deleteProjectConfirm";
+import { User } from "types/user";
+import { Project } from "types/project";
 
 interface ListProps extends TableProps<Project> {
   users: User[];
