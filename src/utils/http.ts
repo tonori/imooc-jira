@@ -1,6 +1,4 @@
 import qs from "qs";
-import { useAuth } from "context/auth-content";
-// import * as Auth from 'context/auth-provider'
 
 import { message } from "antd";
 
@@ -39,10 +37,4 @@ export const http = async (
       return Promise.reject(data);
     }
   });
-};
-
-export const useHttp = () => {
-  const { user } = useAuth();
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
 };

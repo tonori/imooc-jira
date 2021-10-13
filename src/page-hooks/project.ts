@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useRequest, { RequestProps } from "utils/use-request";
+import useRequest, { RequestProps } from "hooks/useRequest";
 import { Project } from "types";
 
 export const useGetProject = (params?: Partial<Project>) => {

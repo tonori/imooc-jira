@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 import * as Auth from "./auth-provider";
-import useMount from "utils/use-mount";
-import useRequest from "utils/use-request";
+import useMount from "hooks/useMount";
+import useRequest from "hooks/useRequest";
 import { User } from "types";
 
 interface AuthForm {
@@ -10,7 +10,7 @@ interface AuthForm {
 }
 
 // 创建 Context
-const AuthContext = createContext<
+export const AuthContext = createContext<
   | {
       user: User | null;
       login: (form: AuthForm) => Promise<void>;
@@ -51,13 +51,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{ user, login, register, logout }}
     />
   );
-};
-
-// 在 Provider 下的各个组件需要使用 Context 中的数据时，可以直接使用 useAuth 钩子
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth 必须在 AuthProvider 中使用");
-  }
-  return context;
 };

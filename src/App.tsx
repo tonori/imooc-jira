@@ -3,9 +3,11 @@ import FullPageLoading from "components/full-page-loading";
 import UnauthenticatedApp from "./unauthenticated-app";
 import AuthenticatedApp from "./authenticated-app";
 
+// utils
 import { getToken } from "context/auth-provider";
+
 // Hooks
-import { useAuth } from "context/auth-content";
+import useAuth from "hooks/useAuth";
 
 const App = () => {
   const { user } = useAuth();

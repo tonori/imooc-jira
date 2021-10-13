@@ -8,14 +8,14 @@ import { useGetProject } from "page-hooks/project";
 
 const ProjectPopover = () => {
   const { response: projects } = useGetProject();
-  const pinnerProjects = projects?.filter((project) => project.pin);
+  const pinnedProjects = projects?.filter((project) => project.pin);
 
   const content = (
     <ContentContainer>
       <Collapse ghost defaultActiveKey="shortcuts">
         <Collapse.Panel header="收藏的项目" key="pinProjects">
           <List size="small">
-            {pinnerProjects?.map((project) => (
+            {pinnedProjects?.map((project) => (
               <List.Item key={project.id}>
                 <PinProjectListItem to={`/projects/${project.id}`}>
                   {project.name}

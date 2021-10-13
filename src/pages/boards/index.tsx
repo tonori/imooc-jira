@@ -1,5 +1,5 @@
 // Hooks
-import useDocumentTitle from "utils/use-document-title";
+import useDocumentTitle from "hooks/useDocumentTitle";
 
 const Boards = () => {
   useDocumentTitle("看板");

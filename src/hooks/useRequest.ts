@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { http, Config } from "utils/http";
-import useIsUnmounted from "utils/use-is-unmounted";
+import useIsUnMounted from "hooks/useIsUnMounted";
 import * as Auth from "context/auth-provider";
 import { message } from "antd";
 
@@ -13,7 +13,7 @@ const useRequest = <P>() => {
   const [response, setResponse] = useState<P>();
   const [error, setError] = useState(null);
 
-  const isUnmounted = useIsUnmounted();
+  const isUnmounted = useIsUnMounted();
 
   const request = async ({
     finalPoint,

@@ -4,15 +4,15 @@ import { Dropdown, Menu, Button, message } from "antd";
 import styled from "@emotion/styled";
 import ProjectListScreen from "pages/project-list";
 import ProjectScreen from "pages/project";
-import ProjectPopover from "components/project-popover";
+import ProjectPopover from "pages/project-list/project-popover";
 import ProjectModal from "pages/project-list/project-modal";
 
 // Hooks
 import { useState } from "react";
-import { useAuth } from "context/auth-content";
+import useAuth from "hooks/useAuth";
 
 // Resources
-import { ReactComponent as SortwareLogo } from "assets/software-logo.svg";
+import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 
 const PageHeader = () => {
   const { user, logout: _logout } = useAuth();
@@ -39,7 +39,7 @@ const PageHeader = () => {
           type="link"
           onClick={() => (window.location.href = window.location.origin)}
         >
-          <SortwareLogo width="18rem" color="rbg(38, 132, 255)" />
+          <SoftwareLogo width="18rem" color="rbg(38, 132, 255)" />
         </Button>
         <h3>
           <ProjectPopover />

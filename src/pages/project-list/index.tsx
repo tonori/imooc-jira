@@ -4,12 +4,12 @@ import List from "./list";
 
 // Hooks
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useHttp } from "utils/http";
-import useDebounce from "utils/use-debounce";
-import useMount from "utils/use-mount";
-import useRequest from "utils/use-request";
-import useDocumentTitle from "utils/use-document-title";
-import useUrlQueryParams from "utils/use-url-query-param";
+import useHttp from "hooks/useHttp";
+import useDebounce from "hooks/useDebounce";
+import useMount from "hooks/useMount";
+import useRequest from "hooks/useRequest";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import useUrlQueryParams from "hooks/useUrlQueryParam";
 
 // Utils
 import { cleanObject, stringToNumber } from "utils";

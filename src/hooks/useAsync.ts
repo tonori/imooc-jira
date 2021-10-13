@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useIsUnmounted from "utils/use-is-unmounted";
+import useIsUnMounted from "hooks/useIsUnMounted";
 
 interface State<D> {
   error: Error | null;
@@ -19,7 +19,7 @@ const useAsync = <D>(initialState?: State<D>) => {
     ...initialState,
   });
 
-  const isUnmounted = useIsUnmounted();
+  const isUnmounted = useIsUnMounted();
 
   const setData = (data: D) =>
     setState({
