@@ -17,15 +17,13 @@ import { TableProps } from "antd/es/table";
 interface ListProps extends TableProps<Project> {
   users: User[];
   tableLoading: boolean;
-  refreshDataFunc: () => void;
 }
 
 const List = ({ users, ...props }: ListProps) => {
   const { url } = useRouteMatch();
-  const { mutate, loading: editing } = useEditProject();
+  const { mutate, isLoading: editing } = useEditProject();
 
-  const switchPin = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refreshDataFunc);
+  const switchPin = (id: number) => (pin: boolean) => mutate({ id, pin });
 
   const columns = [
     {
@@ -38,7 +36,7 @@ const List = ({ users, ...props }: ListProps) => {
     },
     {
       title: "项目名称",
-      render(text: Project, project: Project) {
+      render(_: Project, project: Project) {
         return (
           <Link to={`${url}/${project.id.toString()}`}>{project.name}</Link>
         );
@@ -51,13 +49,15 @@ const List = ({ users, ...props }: ListProps) => {
     },
     {
       title: "负责人",
-      render(text: Project, project: Project) {
-        return users.find((user) => user.id === text.personId)?.name || "未知";
+      render(_: Project, project: Project) {
+        return (
+          users.find((user) => user.id === project.personId)?.name || "未知"
+        );
       },
     },
     {
       title: "创建时间",
-      render(value: Project, project: Project) {
+      render(_: Project, project: Project) {
         return project.created
           ? dayjs(project.created).format("YYYY-MM-DD H:M:s")
           : "无";

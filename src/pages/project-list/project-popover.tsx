@@ -1,13 +1,13 @@
 // Components
 import { Link } from "react-router-dom";
-import { Popover, List, Collapse, Button } from "antd";
+import { Button, Collapse, List, Popover } from "antd";
 import styled from "@emotion/styled";
 
 // Hooks
 import { useGetProject } from "page-hooks/project";
 
 const ProjectPopover = () => {
-  const { response: projects } = useGetProject();
+  const { data: projects } = useGetProject();
   const pinnedProjects = projects?.filter((project) => project.pin);
 
   const content = (

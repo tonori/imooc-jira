@@ -1,19 +1,12 @@
-import { useCallback } from "react";
-import useRequest, { RequestProps } from "hooks/useRequest";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import useHttp from "hooks/useHttp";
 import { Project } from "types";
 
 export const useGetProject = (params?: Partial<Project>) => {
-  const { request: _request, ...response } = useRequest<Project[]>();
-
-  const request = useCallback(() => {
-    _request({
-      finalPoint: "/projects",
-      method: "GET",
-      data: params,
-    });
-  }, [params, _request]);
-
-  return { request, ...response };
+  const client = useHttp();
+  return useQuery<Project[]>(["projectsList", params], () =>
+    client("/projects", { method: "GET", data: params })
+  );
 };
 
 // 新增项目
@@ -33,19 +26,16 @@ export const useGetProject = (params?: Partial<Project>) => {
 
 // 编辑项目
 export const useEditProject = () => {
-  const { request, ...response } = useRequest();
-
-  const mutate = async (params: Partial<Project>) => {
-    const config: RequestProps = {
-      finalPoint: `/projects/${params.id}`,
-      method: "PATCH",
-      data: params,
-    };
-    return request(config);
-  };
-
-  return {
-    mutate,
-    ...response,
-  };
+  const client = useHttp();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (params: Partial<Project>) =>
+      client(`/projects/${params.id}`, {
+        method: "PATCH",
+        data: params,
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries("projectsList"),
+    }
+  );
 };

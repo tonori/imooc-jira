@@ -38,15 +38,11 @@ const ProjectList = () => {
     [debouncedParam]
   );
 
-  const {
-    request: getProjectData,
-    loading: tableLoading,
-    response: projectList,
-  } = useGetProject(queryParam);
+  const { data: projectList, isLoading: tableLoading } =
+    useGetProject(queryParam);
 
   useEffect(() => {
     setUrlQueryParam(queryParam);
-    getProjectData();
     // eslint-disable-next-line
   }, [queryParam]);
 
@@ -65,7 +61,6 @@ const ProjectList = () => {
       </FlexBetween>
       <SearchForm param={param} setParam={setParam} users={users} />
       <List
-        refreshDataFunc={getProjectData}
         tableLoading={tableLoading}
         users={users}
         dataSource={projectList || []}

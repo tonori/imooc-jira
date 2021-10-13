@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="48f488c8-1739-4a71-99d2-eccb2e53d49a" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks/useProjectModal.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styled-components/FlexBetween.ts" afterDir="false" />
+    <list default="true" id="48f488c8-1739-4a71-99d2-eccb2e53d49a" name="更改" comment="feat: 增加 useProjectModal 控制 projectList 的 modal 状态">
+      <changelist_data name="Tochida tonori" email="tonori@tonori.cn" date="1634141727000" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/authenticated-app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/authenticated-app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page-hooks/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page-hooks/project.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/project-list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/project-list/project-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/project-modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/project-list/list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/list.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/project-list/project-popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/project-list/project-popover.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="0508f42d7f84a984e86920e7e511aca91ccb2e93" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,7 +59,8 @@
       <option name="presentableId" value="Default" />
       <updated>1634102891740</updated>
       <workItem from="1634102893856" duration="1927000" />
-      <workItem from="1634105408160" duration="12736000" />
+      <workItem from="1634105408160" duration="13761000" />
+      <workItem from="1634202905020" duration="3779000" />
     </task>
     <task id="LOCAL-00001" summary="style: 文件目录及 hook 文件命名变更">
       <created>1634105481943</created>
@@ -72,16 +76,44 @@
       <option name="project" value="LOCAL" />
       <updated>1634115273654</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: 增加 useProjectModal 控制 projectList 的 modal 状态">
+      <created>1634141729262</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1634141729262</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 错字修正">
+      <created>1634143785953</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1634143785953</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="style: 文件目录及 hook 文件命名变更" />
     <MESSAGE value="fix: 修复请求项目列表和 &quot;/me&quot; 接口时重复发送两遍的情况" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 修复请求项目列表和 &quot;/me&quot; 接口时重复发送两遍的情况" />
+    <MESSAGE value="feat: 增加 useProjectModal 控制 projectList 的 modal 状态" />
+    <MESSAGE value="fix: 错字修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 错字修正" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
