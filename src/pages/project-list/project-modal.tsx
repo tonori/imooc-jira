@@ -12,7 +12,7 @@ const ProjectModal = () => {
       visible={projectModalState}
       onCancel={closeModal}
       okText="确定"
-      cancelText="推出"
+      cancelText="退出"
     >
       <span>Project Modal</span>
     </Modal>

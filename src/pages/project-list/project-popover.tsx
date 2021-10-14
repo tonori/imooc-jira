@@ -5,9 +5,11 @@ import styled from "@emotion/styled";
 
 // Hooks
 import { useGetProject } from "page-hooks/project";
+import useProjectModal from "hooks/useProjectModal";
 
 const ProjectPopover = () => {
   const { data: projects } = useGetProject();
+  const { openModal } = useProjectModal();
   const pinnedProjects = projects?.filter((project) => project.pin);
 
   const content = (
@@ -25,7 +27,9 @@ const ProjectPopover = () => {
           </List>
         </Collapse.Panel>
         <Collapse.Panel header="快捷操作" key="shortcuts">
-          <Button type="link">新建项目</Button>
+          <Button type="link" onClick={openModal}>
+            新建项目
+          </Button>
         </Collapse.Panel>
       </Collapse>
     </ContentContainer>
