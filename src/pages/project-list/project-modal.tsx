@@ -25,23 +25,33 @@ const ProjectModal = () => {
   const modalProps: ModalProps = {
     destroyOnClose: true,
     visible,
-    onOk,
+    onOk: onOk,
     onCancel: closeModal,
     confirmLoading,
     okText: "确定",
     cancelText: "退出",
-    afterClose: () => {
+    title: actionModalTitle[action || "create"],
+    afterClose() {
       setConfirmLoading(false);
     },
-    title: actionModalTitle[action || "create"],
   };
 
   const activeComponent = useMemo(() => {
     switch (action) {
       case "create":
-        return <CreateProjectForm form={modalForm} />;
+        return (
+          <CreateProjectForm
+            form={modalForm}
+            setConfirmLoading={setConfirmLoading}
+          />
+        );
       case "edit":
-        return <EditProjectForm form={modalForm} />;
+        return (
+          <EditProjectForm
+            form={modalForm}
+            setConfirmLoading={setConfirmLoading}
+          />
+        );
     }
   }, [modalForm, action]);
 

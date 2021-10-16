@@ -1,19 +1,20 @@
 // Components
-import { Form, FormProps, Input, Spin } from "antd";
+import { Form, Input, Spin } from "antd";
 import ProjectUserSelect from "components/projectUserSelect";
 
 // Hooks
+import { useEffect } from "react";
 import { useRouteMatch } from "react-router";
 import { useEditProject, useGetSingleProject } from "page-hooks/project";
 import useProjectModal from "hooks/useProjectModal";
 
-// Utils
-import { useEffect } from "react";
+// Types
+import { ModalFormProps } from "./modalFormProps";
 
 // Form validate
 import validateRules from "./validateRules";
 
-const EditProjectForm = (props: FormProps) => {
+const EditProjectForm = (props: ModalFormProps) => {
   const { params } = useRouteMatch<{ projectId: string }>();
   const id = Number(params.projectId);
   const { data: initialValues, isLoading } = useGetSingleProject(id);
@@ -22,14 +23,24 @@ const EditProjectForm = (props: FormProps) => {
 
   const onFinish = (values: any) => {
     mutateAsync({ id, ...values }).then(() => {
-      props?.form?.resetFields();
+      props.form.resetFields();
       closeModal();
     });
   };
 
+  // 表单验证错误时取消 modal button loading
+  const onFinishFailed = () => {
+    props.setConfirmLoading(false);
+  };
+
   useEffect(() => {
-    props?.form?.setFieldsValue(initialValues);
+    props.form.setFieldsValue(initialValues);
   }, [props.form, initialValues]);
+
+  // 加载项目详情数据时同步 modal button loading
+  useEffect(() => {
+    props.setConfirmLoading(isLoading);
+  }, [props, isLoading]);
 
   return (
     <Spin spinning={isLoading} delay={200}>
@@ -37,6 +48,7 @@ const EditProjectForm = (props: FormProps) => {
         name="editProject"
         labelCol={{ span: 4 }}
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         preserve={false}
         {...props}
       >

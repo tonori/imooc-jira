@@ -1,28 +1,39 @@
 // Components
-import { Form, FormProps, Input } from "antd";
+import { Form, Input } from "antd";
 import ProjectUserSelect from "components/projectUserSelect";
 
 // Hooks
 import { useAddProject } from "page-hooks/project";
 import useProjectModal from "hooks/useProjectModal";
 
+// Types
+import { ModalFormProps } from "./modalFormProps";
+
 // Form validate
 import validateRules from "./validateRules";
 
-const CreateProjectForm = (props: FormProps) => {
+const CreateProjectForm = (props: ModalFormProps) => {
   const { mutateAsync } = useAddProject();
   const { closeModal } = useProjectModal();
+
   const onFinish = (values: any) => {
     mutateAsync(values).then(() => {
-      props?.form?.resetFields();
+      props.form.resetFields();
       closeModal();
     });
   };
+
+  // 表单验证错误时取消 modal button loading
+  const onFinishFailed = () => {
+    props.setConfirmLoading(false);
+  };
+
   return (
     <Form
       name="createProject"
       labelCol={{ span: 4 }}
       onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
       preserve={false}
       {...props}
     >
