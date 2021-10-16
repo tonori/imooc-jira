@@ -14,3 +14,8 @@ html body #root {
 .w-100 {
   width: 100%;
 }
+
+.ant-form-item-explain-error * {
+  text-align: left !important;
+  font-size: 13px !important;
+}

@@ -1,5 +1,5 @@
 // Components
-import { Switch, Route, Redirect } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import { Card } from "antd";
 import RegisterScreen from "pages/auth/register";
 import LoginScreen from "pages/auth/login";
@@ -42,11 +42,6 @@ const AuthenticatedCard = styled(Card)`
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   text-align: center;
-
-  .ant-form-item-explain-error * {
-    text-align: left;
-    font-size: 1rem;
-  }
 `;
 
 const Header = styled.header`

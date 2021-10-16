@@ -10,7 +10,8 @@ import useProjectModal from "hooks/useProjectModal";
 // Utils
 import { useEffect } from "react";
 
-// Types
+// Form validate
+import validateRules from "./validateRules";
 
 const EditProjectForm = (props: FormProps) => {
   const { params } = useRouteMatch<{ projectId: string }>();
@@ -39,13 +40,21 @@ const EditProjectForm = (props: FormProps) => {
         preserve={false}
         {...props}
       >
-        <Form.Item label="项目名称" name="name">
+        <Form.Item label="项目名称" name="name" rules={[validateRules["name"]]}>
           <Input />
         </Form.Item>
-        <Form.Item label="负责部门" name="organization">
+        <Form.Item
+          label="负责部门"
+          name="organization"
+          rules={[validateRules["organization"]]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="负责人" name="personId">
+        <Form.Item
+          label="负责人"
+          name="personId"
+          rules={[validateRules["personId"]]}
+        >
           <ProjectUserSelect placeholder="请选择" allowClear={false} />
         </Form.Item>
       </Form>
