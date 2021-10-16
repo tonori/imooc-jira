@@ -1,27 +1,24 @@
 // Component
 import SearchForm from "./search-form";
 import List from "./list";
+import ProjectModal from "./project-modal";
 import FlexBetween from "styled-components/FlexBetween";
 import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 // Hooks
 import { useEffect, useMemo, useState } from "react";
-import useHttp from "hooks/useHttp";
 import useDebounce from "hooks/useDebounce";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useUrlQueryParams from "hooks/useUrlQueryParam";
 import { useGetProject } from "page-hooks/project";
-import useProjectModal from "hooks/useProjectModal";
+import { useGetProjectUsers } from "page-hooks/projectUsers";
 
 // Utils
 import { cleanObject, stringToNumber } from "utils";
 
 const ProjectList = () => {
   useDocumentTitle("项目列表");
-
-  const client = useHttp();
-  const [users, setUsers] = useState([]);
-  const { openModal } = useProjectModal();
 
   const [urlQueryParam, setUrlQueryParam] = useUrlQueryParams([
     "name",
@@ -38,6 +35,7 @@ const ProjectList = () => {
     [debouncedParam]
   );
 
+  const { data: users } = useGetProjectUsers();
   const { data: projectList, isLoading: tableLoading } =
     useGetProject(queryParam);
 
@@ -46,25 +44,21 @@ const ProjectList = () => {
     // eslint-disable-next-line
   }, [queryParam]);
 
-  useEffect(() => {
-    client("/users").then((users) => {
-      setUsers(users);
-    });
-    // eslint-disable-next-line
-  }, []);
-
   return (
     <div>
       <FlexBetween>
         <h1>项目列表</h1>
-        <Button onClick={openModal}>新建项目</Button>
+        <Button>
+          <Link to="/projects/create-project">新建项目</Link>
+        </Button>
       </FlexBetween>
-      <SearchForm param={param} setParam={setParam} users={users} />
+      <SearchForm param={param} setParam={setParam} users={users || []} />
       <List
         tableLoading={tableLoading}
-        users={users}
+        users={users || []}
         dataSource={projectList || []}
       />
+      <ProjectModal />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import useHttp from "hooks/useHttp";
 import { Project } from "types";
 
+// 获取全部 project
 export const useGetProject = (params?: Partial<Project>) => {
   const client = useHttp();
   return useQuery<Project[]>(["projectsList", params], () =>
@@ -9,20 +10,33 @@ export const useGetProject = (params?: Partial<Project>) => {
   );
 };
 
+// 获取单个 project
+export const useGetSingleProject = (id?: number) => {
+  const client = useHttp();
+  return useQuery<Project>(
+    ["project", { id }],
+    () => client(`/projects/${id}`, { method: "GET" }),
+    {
+      enabled: !!id,
+    }
+  );
+};
+
 // 新增项目
-// export const useAddProject = () => {
-//   const { request } = useRequest()
-//   const add = (params: Partial<Project>) => {
-//     return run(client(`/projects/${params.id}`, {
-//       data: params,
-//       method: 'POST'
-//     }))
-//   }
-//   return {
-//     mutate,
-//     ...response
-//   }
-// }
+export const useAddProject = () => {
+  const client = useHttp();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (form: Partial<Project>) =>
+      client("/projects", {
+        method: "POST",
+        data: form,
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries("projectsList"),
+    }
+  );
+};
 
 // 编辑项目
 export const useEditProject = () => {
@@ -33,6 +47,20 @@ export const useEditProject = () => {
       client(`/projects/${params.id}`, {
         method: "PATCH",
         data: params,
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries("projectsList"),
+    }
+  );
+};
+
+export const useDeleteProject = () => {
+  const client = useHttp();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (id: Project["id"]) =>
+      client(`/projects/${id}`, {
+        method: "DELETE",
       }),
     {
       onSuccess: () => queryClient.invalidateQueries("projectsList"),

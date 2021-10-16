@@ -1,21 +1,31 @@
-import { useHistory, useLocation } from "react-router";
+import { useMemo, useRef } from "react";
+import { useHistory, useRouteMatch } from "react-router";
 
 const useProjectModal = () => {
-  const { pathname } = useLocation();
-  const history = useHistory();
-  const PATH = "/projects/create-project";
-  const prevPATH = "/projects";
+  const PATH = useRef<{ [key: string]: string }>({
+    create: "/projects/create-project",
+    edit: "/projects/:projectId/edit",
+  });
 
-  const openModal = () => {
-    history.push(PATH);
-  };
+  const { path: pathname } = useRouteMatch();
+  const history = useHistory();
+
   const closeModal = () => {
-    history.push(prevPATH);
+    history.push("/projects");
   };
+
+  const visible = useMemo(
+    () => Object.values(PATH.current).includes(pathname),
+    [PATH, pathname]
+  );
+  const action = useMemo(
+    () => Object.keys(PATH.current).find((k) => PATH.current[k] === pathname),
+    [PATH, pathname]
+  );
 
   return {
-    projectModalState: pathname === PATH,
-    openModal,
+    visible,
+    action,
     closeModal,
   };
 };

@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import ProjectListScreen from "pages/project-list";
 import ProjectScreen from "pages/project";
 import ProjectPopover from "pages/project-list/project-popover";
-import ProjectModal from "pages/project-list/project-modal";
 
 // Hooks
 import useAuth from "hooks/useAuth";
@@ -60,17 +59,23 @@ const AuthenticatedApp = () => {
       <PageHeader />
       <Main>
         <Switch>
-          <Route exact path="/projects" component={ProjectListScreen} />
           <Route
-            exact
             path="/projects/create-project"
             component={ProjectListScreen}
           />
+          <Route
+            path="/projects/:projectId/edit"
+            component={ProjectListScreen}
+          />
+          <Route
+            path="/projects/:projectId/delete"
+            component={ProjectListScreen}
+          />
           <Route path="/projects/:projectId" component={ProjectScreen} />
+          <Route path="/projects" component={ProjectListScreen} />
           <Redirect to="/projects" from="/" />
         </Switch>
       </Main>
-      <ProjectModal />
     </Container>
   );
 };

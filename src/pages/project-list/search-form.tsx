@@ -1,4 +1,5 @@
-import { Form, Input, Select } from "antd";
+import { Form, Input } from "antd";
+import ProjectUserSelect from "components/projectUserSelect";
 import { Project, User } from "types";
 
 interface SearchFormProps {
@@ -7,7 +8,7 @@ interface SearchFormProps {
   users: User[];
 }
 
-const SearchForm = ({ param, setParam, users }: SearchFormProps) => {
+const SearchForm = ({ param, setParam }: SearchFormProps) => {
   return (
     <Form layout="inline" style={{ marginBottom: "2rem" }}>
       <Form.Item>
@@ -19,19 +20,11 @@ const SearchForm = ({ param, setParam, users }: SearchFormProps) => {
         />
       </Form.Item>
       <Form.Item>
-        <Select
+        <ProjectUserSelect
           onChange={(value) => {
             setParam({ ...param, personId: Number(value) });
           }}
-          placeholder="负责人"
-          allowClear
-        >
-          {users.map((user) => (
-            <Select.Option value={user.id} key={user.name}>
-              {user.name}
-            </Select.Option>
-          ))}
-        </Select>
+        />
       </Form.Item>
     </Form>
   );

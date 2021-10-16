@@ -1,6 +1,6 @@
 // Components
 import { Link } from "react-router-dom";
-import { Table } from "antd";
+import { Button, Space, Table } from "antd";
 import Pin from "components/pin";
 
 // Module
@@ -8,11 +8,14 @@ import dayjs from "dayjs";
 
 // Hooks
 import { useRouteMatch } from "react-router";
-import { useEditProject } from "page-hooks/project";
+import { useDeleteProject, useEditProject } from "page-hooks/project";
 
 // Types
 import { Project, User } from "types";
 import { TableProps } from "antd/es/table";
+
+// Utils
+import createDeleteProjectConfirm from "./deleteProjectConfirm";
 
 interface ListProps extends TableProps<Project> {
   users: User[];
@@ -24,6 +27,7 @@ const List = ({ users, ...props }: ListProps) => {
   const { mutate, isLoading: editing } = useEditProject();
 
   const switchPin = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const { mutateAsync: deleteProject } = useDeleteProject();
 
   const columns = [
     {
@@ -61,6 +65,27 @@ const List = ({ users, ...props }: ListProps) => {
         return project.created
           ? dayjs(project.created).format("YYYY-MM-DD H:M:s")
           : "无";
+      },
+    },
+    {
+      title: "操作",
+      render(_: Project, project: Project) {
+        return (
+          <Space size="small">
+            <Link to={`/projects/${project.id}/edit`}>编辑</Link>
+            <Button
+              danger
+              type="link"
+              onClick={() => {
+                createDeleteProjectConfirm(project.name, () =>
+                  deleteProject(project.id)
+                );
+              }}
+            >
+              删除
+            </Button>
+          </Space>
+        );
       },
     },
   ];
