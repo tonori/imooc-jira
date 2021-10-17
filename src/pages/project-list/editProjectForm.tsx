@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useRouteMatch } from "react-router";
 import { useEditProject, useGetSingleProject } from "page-hooks/project";
 import useProjectModal from "hooks/useProjectModal";
+import useDocumentTitle from "hooks/useDocumentTitle";
 
 // Types
 import { ModalFormProps } from "./modalFormProps";
@@ -15,6 +16,8 @@ import { ModalFormProps } from "./modalFormProps";
 import validateRules from "./validateRules";
 
 const EditProjectForm = (props: ModalFormProps) => {
+  useDocumentTitle("编辑项目");
+
   const { params } = useRouteMatch<{ projectId: string }>();
   const id = Number(params.projectId);
   const { data: initialValues, isLoading } = useGetSingleProject(id);

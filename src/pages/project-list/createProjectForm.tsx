@@ -5,6 +5,7 @@ import ProjectUserSelect from "components/projectUserSelect";
 // Hooks
 import { useAddProject } from "page-hooks/project";
 import useProjectModal from "hooks/useProjectModal";
+import useDocumentTitle from "hooks/useDocumentTitle";
 
 // Types
 import { ModalFormProps } from "./modalFormProps";
@@ -13,6 +14,8 @@ import { ModalFormProps } from "./modalFormProps";
 import validateRules from "./validateRules";
 
 const CreateProjectForm = (props: ModalFormProps) => {
+  useDocumentTitle("新建项目");
+
   const { mutateAsync } = useAddProject();
   const { closeModal } = useProjectModal();
 
