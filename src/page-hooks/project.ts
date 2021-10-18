@@ -90,7 +90,28 @@ export const useEditProject = () => {
         data: params,
       }),
     {
-      onSuccess: () => queryClient.invalidateQueries(queryKey),
+      onMutate: async (target) => {
+        await queryClient.cancelQueries(queryKey);
+        // 保存前一次状态的快照
+        const previousItems = queryClient.getQueryData(queryKey);
+        // 乐观更新修改数据
+        queryClient.setQueryData(
+          queryKey,
+          (old?: Project[]) =>
+            old?.map((project) =>
+              project.id === target.id ? { ...project, ...target } : project
+            ) || []
+        );
+        // 返回前一次状态的快照，以便发生错误时需要回滚所使用
+        return { previousItems };
+      },
+      // 出错时，使用前一次状态的快照重新设置当前缓存数据
+      onError: (error, newItem, context) => {
+        queryClient.setQueryData(
+          queryKey,
+          (context as { previousItems: Project[] }).previousItems
+        );
+      },
     }
   );
 };

@@ -24,7 +24,7 @@ interface ListProps extends TableProps<Project> {
 
 const List = ({ users, ...props }: ListProps) => {
   const { url } = useRouteMatch();
-  const { mutate, isLoading: editing } = useEditProject();
+  const { mutate } = useEditProject();
 
   const switchPin = (id: number) => (pin: boolean) => mutate({ id, pin });
   const { mutateAsync: deleteProject } = useDeleteProject();
@@ -95,7 +95,7 @@ const List = ({ users, ...props }: ListProps) => {
       rowKey={"id"}
       pagination={false}
       columns={columns}
-      loading={{ delay: 200, spinning: props.tableLoading || editing }}
+      loading={{ delay: 200, spinning: props.tableLoading }}
       {...props}
     />
   );
