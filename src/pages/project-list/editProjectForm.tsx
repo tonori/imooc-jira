@@ -21,14 +21,13 @@ const EditProjectForm = (props: ModalFormProps) => {
   const { params } = useRouteMatch<{ projectId: string }>();
   const id = Number(params.projectId);
   const { data: initialValues, isLoading } = useGetSingleProject(id);
-  const { mutateAsync } = useEditProject();
+  const { mutate } = useEditProject();
   const { closeModal } = useProjectModal();
 
   const onFinish = (values: any) => {
-    mutateAsync({ id, ...values }).then(() => {
-      props.form.resetFields();
-      closeModal();
-    });
+    mutate({ id, ...values });
+    props.form.resetFields();
+    closeModal();
   };
 
   // 表单验证错误时取消 modal button loading

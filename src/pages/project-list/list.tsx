@@ -27,7 +27,7 @@ const List = ({ users, ...props }: ListProps) => {
   const { mutate } = useEditProject();
 
   const switchPin = (id: number) => (pin: boolean) => mutate({ id, pin });
-  const { mutateAsync: deleteProject } = useDeleteProject();
+  const { mutate: deleteProject } = useDeleteProject();
 
   const columns = [
     {
@@ -77,9 +77,10 @@ const List = ({ users, ...props }: ListProps) => {
               danger
               type="link"
               onClick={() => {
-                createDeleteProjectConfirm(project.name, () =>
-                  deleteProject(project.id)
-                );
+                createDeleteProjectConfirm(project.name, () => {
+                  deleteProject(project);
+                  return Promise.resolve();
+                });
               }}
             >
               删除

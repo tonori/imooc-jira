@@ -5,6 +5,7 @@ import useUrlQueryParams from "hooks/useUrlQueryParam";
 import { Project } from "types";
 import { cleanObject, stringToNumber } from "utils";
 import useDebounce from "../hooks/useDebounce";
+import useOptimisticOption from "../hooks/useOptimisticOption";
 
 // 获取项目列表页面的查询参数
 export const useProjectParam = () => {
@@ -33,6 +34,16 @@ export const useProjectParam = () => {
   return [param, cleanedParam, setParam] as const;
 };
 
+// 获取项目列表页面的 QueryKey
+export const useProjectQueryKey = () => {
+  // param[0]: param
+  // param[1]: cleanedParam
+  // param[2]: setParam
+  const param = useProjectParam();
+  const cleanedParam = param[1];
+  return ["projectList", cleanedParam];
+};
+
 // 获取 project list
 export const useGetProject = (params?: Partial<Project>) => {
   const client = useHttp();
@@ -57,6 +68,8 @@ export const useGetSingleProject = (id?: number) => {
 export const useAddProject = () => {
   const client = useHttp();
   const queryClient = useQueryClient();
+  const queryKey = useProjectQueryKey();
+
   return useMutation(
     (form: Partial<Project>) =>
       client("/projects", {
@@ -64,7 +77,7 @@ export const useAddProject = () => {
         data: form,
       }),
     {
-      onSuccess: () => queryClient.invalidateQueries("projectsList"),
+      onSuccess: () => queryClient.invalidateQueries(queryKey),
     }
   );
 };
@@ -72,16 +85,15 @@ export const useAddProject = () => {
 // 编辑项目
 export const useEditProject = () => {
   const client = useHttp();
-  const queryClient = useQueryClient();
+  const queryKey = useProjectQueryKey();
 
-  // param[0]: param
-  // param[1]: cleanedParam
-  // param[2]: setParam
-  const param = useProjectParam();
-  const cleanedParam = param[1];
-
-  // 查询的键值
-  const queryKey = ["projectList", cleanedParam];
+  const mutationOptions = useOptimisticOption<Project>({
+    queryKey,
+    callback: (target, old) =>
+      old?.map((item) =>
+        item.id === target.id ? { ...item, ...target } : item
+      ) || [],
+  });
 
   return useMutation(
     (params: Partial<Project>) =>
@@ -89,44 +101,26 @@ export const useEditProject = () => {
         method: "PATCH",
         data: params,
       }),
-    {
-      onMutate: async (target) => {
-        await queryClient.cancelQueries(queryKey);
-        // 保存前一次状态的快照
-        const previousItems = queryClient.getQueryData(queryKey);
-        // 乐观更新修改数据
-        queryClient.setQueryData(
-          queryKey,
-          (old?: Project[]) =>
-            old?.map((project) =>
-              project.id === target.id ? { ...project, ...target } : project
-            ) || []
-        );
-        // 返回前一次状态的快照，以便发生错误时需要回滚所使用
-        return { previousItems };
-      },
-      // 出错时，使用前一次状态的快照重新设置当前缓存数据
-      onError: (error, newItem, context) => {
-        queryClient.setQueryData(
-          queryKey,
-          (context as { previousItems: Project[] }).previousItems
-        );
-      },
-    }
+    mutationOptions
   );
 };
 
 // 删除项目
 export const useDeleteProject = () => {
   const client = useHttp();
-  const queryClient = useQueryClient();
+  const queryKey = useProjectQueryKey();
+
+  const mutationOptions = useOptimisticOption<Project>({
+    queryKey,
+    callback: (target, old) =>
+      old?.filter((item) => item.id !== target.id) || [],
+  });
+
   return useMutation(
-    (id: Project["id"]) =>
-      client(`/projects/${id}`, {
+    (params: Partial<Project>) =>
+      client(`/projects/${params.id}`, {
         method: "DELETE",
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries("projectsList"),
-    }
+    mutationOptions
   );
 };
