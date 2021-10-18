@@ -1,5 +1,5 @@
-import { useLocation, useHistory } from "react-router-dom";
-import { useMemo, useRef } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { useCallback, useMemo, useRef } from "react";
 import * as qs from "qs";
 
 const useUrlQueryParam = <K extends string>(keys: K[]) => {
@@ -11,12 +11,15 @@ const useUrlQueryParam = <K extends string>(keys: K[]) => {
   );
   const paramKeys = useRef(keys);
 
-  const setSearchParams = (queryParam: { [key: string]: unknown }) => {
-    history.push({
-      pathname,
-      search: "?" + qs.stringify(queryParam),
-    });
-  };
+  const setSearchParams = useCallback(
+    (queryParam: { [key: string]: unknown }) => {
+      history.push({
+        pathname,
+        search: "?" + qs.stringify(queryParam),
+      });
+    },
+    [history, pathname]
+  );
 
   return [
     useMemo(
