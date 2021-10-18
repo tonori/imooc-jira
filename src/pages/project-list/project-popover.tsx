@@ -9,11 +9,16 @@ import { useGetProject } from "page-hooks/project";
 const ProjectPopover = () => {
   const { data: projects } = useGetProject({});
   const pinnedProjects = projects?.filter((project) => project.pin);
+  const hasPinnedProjects = Boolean(pinnedProjects && pinnedProjects.length);
 
   const content = (
     <ContentContainer>
       <Collapse ghost defaultActiveKey="shortcuts">
-        <Collapse.Panel header="收藏的项目" key="pinProjects">
+        <Collapse.Panel
+          header="收藏的项目"
+          key="pinProjects"
+          collapsible={hasPinnedProjects ? "header" : "disabled"}
+        >
           <List size="small">
             {pinnedProjects?.map((project) => (
               <List.Item key={project.id}>
@@ -25,7 +30,9 @@ const ProjectPopover = () => {
           </List>
         </Collapse.Panel>
         <Collapse.Panel header="快捷操作" key="shortcuts">
-          <Link to="/projects/create-project">新建项目</Link>
+          <Link className="shortcuts-link" to="/projects/create-project">
+            新建项目
+          </Link>
         </Collapse.Panel>
       </Collapse>
     </ContentContainer>
@@ -56,6 +63,10 @@ const ContentContainer = styled.div`
 
   .ant-divider-inner-text {
     color: #777 !important;
+  }
+
+  .shortcuts-link {
+    padding: 0 16px;
   }
 `;
 
