@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { useGetProject } from "page-hooks/project";
 
 const ProjectPopover = () => {
-  const { data: projects } = useGetProject();
+  const { data: projects } = useGetProject({});
   const pinnedProjects = projects?.filter((project) => project.pin);
 
   const content = (
