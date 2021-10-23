@@ -52,7 +52,7 @@ const Container = styled.div`
   padding: 1rem 1.75rem;
 
   :not(:last-child) {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
   }
 `;
 

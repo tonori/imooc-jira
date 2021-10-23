@@ -1,6 +1,7 @@
 // Components
 import BoardItem from "./BoardItem";
 import SearchPanel from "./SearchPanel";
+import { FlexColumn } from "styled-components/FlexLayout";
 import styled from "@emotion/styled";
 
 // Hooks
@@ -23,7 +24,7 @@ const Boards = () => {
   });
 
   return (
-    <div>
+    <FlexColumn>
       <h1>{currentProjectData?.name} · 任务看板</h1>
       <SearchPanel queryParam={queryParam} setQueryParam={setQueryParam} />
       <BoardContainer>
@@ -35,7 +36,7 @@ const Boards = () => {
           />
         ))}
       </BoardContainer>
-    </div>
+    </FlexColumn>
   );
 };
 
@@ -43,5 +44,7 @@ export default Boards;
 
 const BoardContainer = styled.div`
   display: flex;
+  flex: 1;
+  flex-direction: row;
   overflow: hidden;
 `;

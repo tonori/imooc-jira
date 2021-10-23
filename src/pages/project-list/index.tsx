@@ -1,8 +1,9 @@
 // Component
+import { Main } from "styled-components/ContentScreenLayout";
 import SearchForm from "./search-form";
 import List from "./list";
 import ProjectModal from "./project-modal";
-import FlexBetween from "styled-components/FlexBetween";
+import { FlexBetween } from "styled-components/FlexLayout";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 
@@ -20,7 +21,7 @@ const ProjectList = () => {
     useGetProject(cleanedParam);
 
   return (
-    <div>
+    <Main>
       <FlexBetween>
         <h1>项目列表</h1>
         <Button>
@@ -34,7 +35,7 @@ const ProjectList = () => {
         dataSource={projectList || []}
       />
       <ProjectModal />
-    </div>
+    </Main>
   );
 };
 
