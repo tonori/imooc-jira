@@ -1,6 +1,7 @@
 // Components
 import BoardItem from "./BoardItem";
 import SearchPanel from "./SearchPanel";
+import SpinOutlined from "components/LoadingOutlined";
 import { FlexColumn } from "styled-components/FlexLayout";
 import styled from "@emotion/styled";
 
@@ -16,16 +17,30 @@ const Boards = () => {
   const { params } = useRouteMatch<{ projectId: string }>();
   const [queryParam, cleanedQueryParam, setQueryParam] = useBoardParam();
   const projectId = Number(params.projectId);
-  const { data: currentProjectData } = useGetSingleProject(projectId);
-  const { data: boardData } = useGetBoards({ projectId: projectId });
-  const { data: tasks } = useGetTasks({
+  const { data: currentProjectData, isLoading: getProjectLoading } =
+    useGetSingleProject(projectId);
+  const { data: boardData, isLoading: getBoardLoading } = useGetBoards({
+    projectId: projectId,
+  });
+  const { data: tasks, isLoading: getTasksLoading } = useGetTasks({
     projectId: projectId,
     ...cleanedQueryParam,
   });
+  const isLoading = getProjectLoading || getBoardLoading || getTasksLoading;
 
   return (
     <FlexColumn>
-      <h1>{currentProjectData?.name} · 任务看板</h1>
+      <h1>
+        {currentProjectData
+          ? `${currentProjectData.name} · 任务看板`
+          : "任务看板"}
+        <SpinOutlined
+          delay={200}
+          spinning={isLoading}
+          size="large"
+          style={{ marginLeft: "1rem" }}
+        />
+      </h1>
       <SearchPanel queryParam={queryParam} setQueryParam={setQueryParam} />
       <BoardContainer>
         {boardData?.map((board) => (
