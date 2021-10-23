@@ -2,10 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useHttp from "hooks/useHttp";
 import useUrlQueryParams from "hooks/useUrlQueryParam";
-import { cleanObject, stringToNumber } from "utils";
+import { cleanObject } from "utils";
 import useDebounce from "hooks/useDebounce";
 import useOptimisticOption from "../hooks/useOptimisticOption";
 import { Project } from "types/project";
+
+export interface ProjectQueryParamProps {
+  name: string | undefined;
+  personId: number | undefined;
+}
 
 // 获取项目列表页面的查询参数
 export const useProjectParam = () => {
@@ -16,15 +21,15 @@ export const useProjectParam = () => {
   ]);
   // 将获取到的参数对象中的 personId 转换成为数字
   // 如果 personId 的值不是数字，则会被转换成0，然后被 cleanObject 清除
-  const [param, setParam] = useState({
+  const [param, setParam] = useState<ProjectQueryParamProps>({
     ...urlQueryParam,
-    personId: stringToNumber(urlQueryParam.personId),
+    personId: Number(urlQueryParam.personId) || undefined,
   });
   // 防抖
   const debounceParam = useDebounce(param, 200);
   // cleanObject
   const cleanedParam = useMemo(
-    () => cleanObject(debounceParam, true),
+    () => cleanObject(debounceParam as Partial<ProjectQueryParamProps>, true),
     [debounceParam]
   );
   // 将计算的 param 推入 history

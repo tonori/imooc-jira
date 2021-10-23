@@ -15,5 +15,5 @@ export const cleanObject = (
   return result;
 };
 
-export const stringToNumber = (value: string) =>
-  isNaN(Number(value)) ? 0 : Number(value);
+export const selectValueToNumber = (value: unknown) =>
+  isNaN(Number(value)) ? undefined : Number(value);

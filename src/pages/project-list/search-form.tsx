@@ -2,6 +2,7 @@ import { Form, Input } from "antd";
 import ProjectUserSelect from "components/projectUserSelect";
 import { User } from "types/user";
 import { ProjectQueryParamProps } from "page-hooks/project";
+import { selectValueToNumber } from "utils";
 
 interface SearchFormProps {
   param: ProjectQueryParamProps;
@@ -14,6 +15,7 @@ const SearchForm = ({ param, setParam }: SearchFormProps) => {
     <Form layout="inline" style={{ marginBottom: "2rem" }}>
       <Form.Item>
         <Input
+          allowClear
           type="text"
           value={param.name}
           placeholder="项目名"
@@ -23,7 +25,7 @@ const SearchForm = ({ param, setParam }: SearchFormProps) => {
       <Form.Item>
         <ProjectUserSelect
           onChange={(value) => {
-            setParam({ ...param, personId: Number(value) });
+            setParam({ ...param, personId: selectValueToNumber(value) });
           }}
         />
       </Form.Item>

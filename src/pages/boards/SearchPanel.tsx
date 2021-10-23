@@ -1,10 +1,12 @@
+// Components
 import { Button, Input } from "antd";
 import styled from "@emotion/styled";
 import ProjectUserSelect from "components/projectUserSelect";
 import TaskTypeSelect from "components/TaskTypeSelect";
-import { useRouteMatch } from "react-router-dom";
-import { useHistory } from "react-router";
+// Hooks
 import { BoardParamProps } from "page-hooks/boards";
+// Utils
+import { selectValueToNumber } from "utils";
 
 interface SearchPanelProps {
   queryParam: BoardParamProps;
@@ -23,27 +25,36 @@ const Container = styled.div`
 `;
 
 const SearchPanel = ({ queryParam, setQueryParam }: SearchPanelProps) => {
-  const { path } = useRouteMatch();
-  const history = useHistory();
   const reset = () => {
-    history.replace(path);
+    setQueryParam({
+      name: undefined,
+      typeId: undefined,
+      processorId: undefined,
+    });
   };
   return (
     <Container>
       <Input
+        allowClear
         style={{ width: "20rem" }}
         placeholder="任务名"
         value={queryParam.name}
         onChange={(e) => setQueryParam({ ...queryParam, name: e.target.value })}
       />
+
       <ProjectUserSelect
+        value={queryParam.processorId}
         onChange={(value) =>
-          setQueryParam({ ...queryParam, processorId: Number(value) })
+          setQueryParam({
+            ...queryParam,
+            processorId: selectValueToNumber(value),
+          })
         }
       />
       <TaskTypeSelect
+        value={queryParam.typeId || undefined}
         onChange={(value) =>
-          setQueryParam({ ...queryParam, typeId: Number(value) })
+          setQueryParam({ ...queryParam, typeId: selectValueToNumber(value) })
         }
       />
       <Button onClick={reset}>重置</Button>
