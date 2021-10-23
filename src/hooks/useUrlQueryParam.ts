@@ -25,8 +25,8 @@ const useUrlQueryParam = <K extends string>(keys: K[]) => {
     useMemo(
       () =>
         paramKeys.current.reduce((prev, key) => {
-          return { ...prev, [key]: searchParams.get(key) };
-        }, {} as { [key in K]: string }),
+          return { ...prev, [key]: searchParams.get(key) || undefined };
+        }, {} as { [key in K]: string | undefined }),
       [searchParams, paramKeys]
     ),
     setSearchParams,
