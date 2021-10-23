@@ -29,7 +29,7 @@ export const useProjectParam = () => {
   const debounceParam = useDebounce(param, 200);
   // cleanObject
   const cleanedParam = useMemo(
-    () => cleanObject(debounceParam as Partial<ProjectQueryParamProps>, true),
+    () => cleanObject(debounceParam as Partial<ProjectQueryParamProps>),
     [debounceParam]
   );
   // 将计算的 param 推入 history

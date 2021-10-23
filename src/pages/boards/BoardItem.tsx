@@ -1,12 +1,14 @@
 // Components
 import styled from "@emotion/styled";
-import { Button, Card, Tag } from "antd";
+import { Button, Card, Input, Tag } from "antd";
 
 // Hooks
 import { useGetTaskTypes } from "page-hooks/taskType";
 // Types
 import { Board } from "types/boards";
 import { Task } from "types/task";
+import { EnterOutlined } from "@ant-design/icons";
+import { useAddBoard } from "page-hooks/boards";
 
 interface BoardItemProps {
   boardName: Board["name"];
@@ -24,7 +26,7 @@ const TaskTypeIcon = ({ id }: { id: Task["id"] }) => {
   );
 };
 
-const BoardItem = ({ boardName, tasks }: BoardItemProps) => {
+export const BoardItem = ({ boardName, tasks }: BoardItemProps) => {
   return (
     <Container>
       <h3>{boardName}</h3>
@@ -35,13 +37,27 @@ const BoardItem = ({ boardName, tasks }: BoardItemProps) => {
             <TaskTypeIcon id={task.typeId} />
           </Card>
         ))}
-        <Button style={{ margin: "0.7rem 0" }}>+ 创建事务</Button>
+        <Button style={{ margin: "0.7rem 0" }}>+ 添加任务</Button>
       </TaskContainer>
     </Container>
   );
 };
 
-export default BoardItem;
+export const AddBoard = () => {
+  const { mutate, isLoading } = useAddBoard();
+  const buttonIcon = <EnterOutlined />;
+  return (
+    <Container>
+      <Input.Search
+        allowClear
+        enterButton={isLoading || buttonIcon}
+        loading={isLoading}
+        placeholder="新建任务看板"
+        onSearch={(value) => mutate(value)}
+      />
+    </Container>
+  );
+};
 
 const Container = styled.div`
   display: flex;

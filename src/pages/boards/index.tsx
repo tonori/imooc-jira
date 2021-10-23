@@ -1,5 +1,5 @@
 // Components
-import BoardItem from "./BoardItem";
+import { AddBoard, BoardItem } from "./BoardItem";
 import SearchPanel from "./SearchPanel";
 import SpinOutlined from "components/LoadingOutlined";
 import { FlexColumn } from "styled-components/FlexLayout";
@@ -29,13 +29,12 @@ const Boards = () => {
   const isLoading = getProjectLoading || getBoardLoading || getTasksLoading;
 
   return (
-    <FlexColumn>
+    <FlexColumn className="w-100">
       <h1>
         {currentProjectData
           ? `${currentProjectData.name} · 任务看板`
           : "任务看板"}
         <SpinOutlined
-          delay={200}
           spinning={isLoading}
           size="large"
           style={{ marginLeft: "1rem" }}
@@ -50,6 +49,7 @@ const Boards = () => {
             tasks={tasks?.filter((task) => task.kanbanId === board.id) || []}
           />
         ))}
+        <AddBoard />
       </BoardContainer>
     </FlexColumn>
   );
@@ -61,5 +61,5 @@ const BoardContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: row;
-  overflow: hidden;
+  overflow-x: scroll;
 `;
