@@ -1,5 +1,5 @@
 // Component
-import { Main } from "styled-components/ContentScreenLayout";
+import { FlexColumnMain } from "styled-components/ContentScreenLayout";
 import SearchForm from "./search-form";
 import List from "./list";
 import ProjectModal from "./project-modal";
@@ -21,7 +21,7 @@ const ProjectList = () => {
     useGetProject(cleanedParam);
 
   return (
-    <Main>
+    <FlexColumnMain style={{ padding: "1.5rem 3.2rem 0" }}>
       <FlexBetween>
         <h1>项目列表</h1>
         <Button>
@@ -35,7 +35,7 @@ const ProjectList = () => {
         dataSource={projectList || []}
       />
       <ProjectModal />
-    </Main>
+    </FlexColumnMain>
   );
 };
 

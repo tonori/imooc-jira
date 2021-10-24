@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import {
   Content,
   ContentContainer,
-  Main,
+  FlexRowMain,
 } from "styled-components/ContentScreenLayout";
 
 // Hooks
@@ -29,7 +29,7 @@ const Project = () => {
   }, [pathname]);
 
   return (
-    <Main>
+    <FlexRowMain>
       <Sider theme="light">
         <Menu mode="inline" theme="light" selectedKeys={[currentActive]}>
           <Menu.Item key="boards" style={{ marginTop: 0 }}>
@@ -49,7 +49,7 @@ const Project = () => {
           </Switch>
         </Content>
       </ContentContainer>
-    </Main>
+    </FlexRowMain>
   );
 };
 

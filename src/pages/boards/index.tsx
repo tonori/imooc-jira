@@ -1,7 +1,8 @@
 // Components
-import { AddBoard, BoardItem } from "./BoardItem";
+import BoardItem from "./BoardItem";
 import SearchPanel from "./SearchPanel";
 import SpinOutlined from "components/LoadingOutlined";
+import AddBoard from "./AddBoard";
 import { FlexColumn } from "styled-components/FlexLayout";
 import styled from "@emotion/styled";
 
@@ -9,23 +10,28 @@ import styled from "@emotion/styled";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import { useBoardParam, useGetBoards } from "page-hooks/boards";
 import { useGetSingleProject } from "page-hooks/project";
-import { useRouteMatch } from "react-router-dom";
 import { useGetTasks } from "page-hooks/task";
+import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
 
 const Boards = () => {
   useDocumentTitle("任务看板");
-  const { params } = useRouteMatch<{ projectId: string }>();
+
   const [queryParam, cleanedQueryParam, setQueryParam] = useBoardParam();
-  const projectId = Number(params.projectId);
+  const projectId = useProjectIdInParam();
+
+  // 获取 project
   const { data: currentProjectData, isLoading: getProjectLoading } =
     useGetSingleProject(projectId);
+  // 获取项目中的看板
   const { data: boardData, isLoading: getBoardLoading } = useGetBoards({
     projectId: projectId,
   });
+  // 获取所有看板的任务，在前端 filter
   const { data: tasks, isLoading: getTasksLoading } = useGetTasks({
     projectId: projectId,
     ...cleanedQueryParam,
   });
+  // loading flag
   const isLoading = getProjectLoading || getBoardLoading || getTasksLoading;
 
   return (
@@ -41,23 +47,23 @@ const Boards = () => {
         />
       </h1>
       <SearchPanel queryParam={queryParam} setQueryParam={setQueryParam} />
-      <BoardContainer>
+      <Container>
         {boardData?.map((board) => (
           <BoardItem
             key={board.id}
-            boardName={board.name}
+            board={board}
             tasks={tasks?.filter((task) => task.kanbanId === board.id) || []}
           />
         ))}
         <AddBoard />
-      </BoardContainer>
+      </Container>
     </FlexColumn>
   );
 };
 
 export default Boards;
 
-const BoardContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: row;

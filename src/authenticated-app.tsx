@@ -1,6 +1,5 @@
 // Components
 import { Redirect, Route, Switch } from "react-router";
-import { Main } from "styled-components/ContentScreenLayout";
 import AuthenticatedAppHeader from "components/authenticatedAppHeader";
 import ProjectListScreen from "pages/project-list";
 import ProjectScreen from "pages/project";
@@ -9,7 +8,7 @@ const AuthenticatedApp = () => {
   return (
     <div style={{ height: "100vh" }}>
       <AuthenticatedAppHeader />
-      <Main>
+      <div>
         <Switch>
           <Route
             path="/projects/create-project"
@@ -27,7 +26,7 @@ const AuthenticatedApp = () => {
           <Route path="/projects" component={ProjectListScreen} />
           <Redirect to="/projects" from="/" />
         </Switch>
-      </Main>
+      </div>
     </div>
   );
 };

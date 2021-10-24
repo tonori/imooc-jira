@@ -35,7 +35,6 @@ const SearchPanel = ({ queryParam, setQueryParam }: SearchPanelProps) => {
   return (
     <Container>
       <Input
-        allowClear
         style={{ width: "20rem" }}
         placeholder="任务名"
         value={queryParam.name}

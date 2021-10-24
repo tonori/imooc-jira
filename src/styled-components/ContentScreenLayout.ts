@@ -12,7 +12,13 @@ export const Header = styled.header`
   z-index: 1;
 `;
 
-export const Main = styled.main`
+export const FlexColumnMain = styled.main`
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 6rem);
+`;
+
+export const FlexRowMain = styled.main`
   display: flex;
   flex-direction: row;
   min-height: calc(100vh - 6rem);

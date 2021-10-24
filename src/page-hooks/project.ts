@@ -58,7 +58,7 @@ export const useGetProject = (params?: Partial<Project>) => {
 };
 
 // 获取单个 project
-export const useGetSingleProject = (id: number) => {
+export const useGetSingleProject = (id?: number) => {
   const client = useHttp();
   return useQuery<Project>(
     ["project", { personId: id }],

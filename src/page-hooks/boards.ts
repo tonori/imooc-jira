@@ -7,7 +7,7 @@ import useDebounce from "hooks/useDebounce";
 import { cleanObject } from "utils";
 import { useProjectQueryKey } from "./project";
 import useOptimisticOption from "../hooks/useOptimisticOption";
-import { useRouteMatch } from "react-router-dom";
+import { useProjectIdInParam } from "./useProjectIdInParam";
 
 export interface BoardParamProps {
   name: string | undefined;
@@ -45,11 +45,6 @@ export const useBoardQueryKey = () => {
   const param = useBoardParam();
   const cleanedParam = param[1];
   return ["boards", cleanedParam];
-};
-
-export const useProjectIdInParam = () => {
-  const { params } = useRouteMatch<{ projectId: string }>();
-  return Number(params.projectId) || undefined;
 };
 
 export const useGetBoards = (param?: Partial<Board>) => {
