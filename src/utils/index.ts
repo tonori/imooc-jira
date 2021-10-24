@@ -5,7 +5,7 @@ export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
-    if (!!value) {
+    if (!value) {
       delete result[key];
     }
   });
