@@ -1,30 +1,25 @@
 // Components
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 import AuthenticatedAppHeader from "components/authenticatedAppHeader";
 import ProjectListScreen from "pages/project-list";
-import ProjectScreen from "pages/project";
 
 const AuthenticatedApp = () => {
+  const history = useHistory();
+
   return (
     <div style={{ height: "100vh" }}>
       <AuthenticatedAppHeader />
       <div>
         <Switch>
-          <Route
-            path="/projects/create-project"
-            component={ProjectListScreen}
-          />
-          <Route
-            path="/projects/:projectId/edit"
-            component={ProjectListScreen}
-          />
-          <Route
-            path="/projects/:projectId/delete"
-            component={ProjectListScreen}
-          />
-          <Route path="/projects/:projectId" component={ProjectScreen} />
           <Route path="/projects" component={ProjectListScreen} />
-          <Redirect to="/projects" from="/" />
+          <Route
+            exact
+            path="/"
+            render={() => {
+              history.replace("/projects");
+              return <div>跳转中...</div>;
+            }}
+          />
         </Switch>
       </div>
     </div>

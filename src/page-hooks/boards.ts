@@ -1,13 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import useHttp from "hooks/useHttp";
-import { Board } from "types/boards";
-import useUrlQueryParams from "hooks/useUrlQueryParam";
 import { useEffect, useMemo, useState } from "react";
+import useUrlQueryParams from "hooks/useUrlQueryParam";
+import useCURD from "hooks/useCURD";
 import useDebounce from "hooks/useDebounce";
 import { cleanObject } from "utils";
-import { useProjectQueryKey } from "./project";
-import useOptimisticOption from "../hooks/useOptimisticOption";
-import { useProjectIdInParam } from "./useProjectIdInParam";
+import { Board } from "types/boards";
 
 export interface BoardParamProps {
   name: string | undefined;
@@ -47,71 +43,7 @@ export const useBoardQueryKey = () => {
   return ["boards", cleanedParam];
 };
 
-export const useGetBoards = (param?: Partial<Board>) => {
-  const client = useHttp();
-  return useQuery<Board[]>(["boards", param], () =>
-    client("/kanbans", { method: "GET", data: param })
-  );
-};
-
-export const useAddBoard = () => {
-  const client = useHttp();
-  const queryClient = useQueryClient();
+export const useBoardsCURD = () => {
   const queryKey = useBoardQueryKey();
-  const projectId = useProjectIdInParam();
-
-  return useMutation(
-    (boardName: string) =>
-      client("/kanbans", {
-        method: "POST",
-        data: {
-          projectId,
-          name: boardName,
-        },
-      }),
-    {
-      onSuccess: () => queryClient.invalidateQueries(queryKey),
-    }
-  );
-};
-
-const useEditBoard = () => {
-  const client = useHttp();
-  const queryKey = useBoardQueryKey();
-
-  const options = useOptimisticOption<Board>({
-    queryKey,
-    callback: (target, old) =>
-      old?.map((item) =>
-        item.id === target.id ? { ...item, ...target } : item
-      ) || [],
-  });
-
-  return useMutation(
-    (params: Partial<Board>) =>
-      client(`/kanbans/${params.id}`, {
-        method: "PATCH",
-        data: params,
-      }),
-    options
-  );
-};
-
-export const useDeleteBoard = () => {
-  const client = useHttp();
-  const queryKey = useProjectQueryKey();
-
-  const options = useOptimisticOption<Board>({
-    queryKey,
-    callback: (target, old) =>
-      old?.filter((item) => item.id !== target.id) || [],
-  });
-
-  return useMutation(
-    (params: Partial<Board>) =>
-      client(`/kanbans/${params.id}`, {
-        method: "DELETE",
-      }),
-    options
-  );
+  return useCURD<Board>({ queryKey, finalPoint: "/kanbans" });
 };

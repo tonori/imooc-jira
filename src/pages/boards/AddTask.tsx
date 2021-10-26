@@ -1,15 +1,18 @@
 import SubmitInput from "./SubmitInput";
 import { Button } from "antd";
+import { EnterOutlined, RollbackOutlined } from "@ant-design/icons";
 
 import { useMemo, useState } from "react";
-import { useAddTask } from "page-hooks/task";
-import { EnterOutlined, RollbackOutlined } from "@ant-design/icons";
+import { useTaskCURD } from "page-hooks/task";
+import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
 
 const AddTask = ({ boardId }: { boardId: number }) => {
   const [state, setState] = useState<"button" | "input">("button");
   const [inputValue, setInputValue] = useState("");
 
-  const { mutateAsync: addTask, isLoading } = useAddTask(boardId);
+  const { useAddItem: useAddTask } = useTaskCURD();
+  const { mutateAsync: addTask, isLoading } = useAddTask();
+  const projectId = useProjectIdInParam();
 
   const enterButton = useMemo(() => {
     if (isLoading) {
@@ -27,7 +30,7 @@ const AddTask = ({ boardId }: { boardId: number }) => {
       setState("button");
     } else {
       // 添加任务后清空 Input
-      addTask(value).then(() => {
+      addTask({ name: value, kanbanId: boardId, projectId }).then(() => {
         setInputValue("");
       });
     }
@@ -38,7 +41,6 @@ const AddTask = ({ boardId }: { boardId: number }) => {
       onClick={() => {
         setState("input");
       }}
-      style={{ margin: "0.7rem 0" }}
     >
       + 添加任务
     </Button>

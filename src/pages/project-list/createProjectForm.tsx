@@ -3,42 +3,45 @@ import { Form, Input } from "antd";
 import ProjectUserSelect from "components/projectUserSelect";
 
 // Hooks
-import { useAddProject } from "page-hooks/project";
-import useProjectModal from "hooks/useProjectModal";
+import { useProjectCURD } from "page-hooks/project";
 import useDocumentTitle from "hooks/useDocumentTitle";
 
 // Types
-import { ModalFormProps } from "./modalFormProps";
+import ModalFormProps from "types/modalFormProps";
 
 // Form validate
 import validateRules from "./validateRules";
 
-const CreateProjectForm = (props: ModalFormProps) => {
+const CreateProjectForm = ({
+  form: formInstance,
+  setConfirmLoading,
+  closeModal,
+}: ModalFormProps) => {
   useDocumentTitle("新建项目");
 
+  const { useAddItem: useAddProject } = useProjectCURD();
   const { mutateAsync } = useAddProject();
-  const { closeModal } = useProjectModal();
 
   const onFinish = (values: any) => {
     mutateAsync(values).then(() => {
-      props.form.resetFields();
+      formInstance.resetFields();
       closeModal();
     });
   };
 
   // 表单验证错误时取消 modal button loading
   const onFinishFailed = () => {
-    props.setConfirmLoading(false);
+    setConfirmLoading(false);
   };
 
   return (
     <Form
+      form={formInstance}
       name="createProject"
       labelCol={{ span: 4 }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       preserve={false}
-      {...props}
     >
       <Form.Item label="项目名称" name="name" rules={[validateRules["name"]]}>
         <Input />

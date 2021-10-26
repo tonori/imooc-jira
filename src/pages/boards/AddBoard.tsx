@@ -3,20 +3,23 @@ import SubmitInput from "./SubmitInput";
 import { Container as BoardContainer } from "./BoardItem";
 import { Typography } from "antd";
 // Hooks
-import { useAddBoard } from "page-hooks/boards";
 import { useState } from "react";
+import { useBoardsCURD } from "page-hooks/boards";
+import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
 
 const AddBoard = () => {
+  const { useAddItem: useAddBoard } = useBoardsCURD();
   const { mutateAsync: addBoard, isLoading } = useAddBoard();
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
+  const projectId = useProjectIdInParam();
 
   const onSearch = () => {
     if (inputValue === "") {
       setError("任务看板名称不能为空");
     } else {
       if (error !== "") setError("");
-      addBoard(inputValue).then(() => {
+      addBoard({ name: inputValue, projectId }).then(() => {
         setInputValue("");
       });
     }

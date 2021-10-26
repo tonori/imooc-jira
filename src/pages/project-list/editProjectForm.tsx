@@ -4,55 +4,62 @@ import ProjectUserSelect from "components/projectUserSelect";
 
 // Hooks
 import { useEffect } from "react";
-import { useRouteMatch } from "react-router";
-import { useEditProject, useGetSingleProject } from "page-hooks/project";
-import useProjectModal from "hooks/useProjectModal";
+import { useProjectCURD } from "page-hooks/project";
+import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
 import useDocumentTitle from "hooks/useDocumentTitle";
 
 // Types
-import { ModalFormProps } from "./modalFormProps";
+import ModalFormProps from "types/modalFormProps";
+import { Project } from "types/project";
 
 // Form validate
 import validateRules from "./validateRules";
 
-const EditProjectForm = (props: ModalFormProps) => {
+const EditProjectForm = ({
+  form: formInstance,
+  setConfirmLoading,
+  closeModal,
+}: ModalFormProps) => {
   useDocumentTitle("编辑项目");
 
-  const { params } = useRouteMatch<{ projectId: string }>();
-  const id = Number(params.projectId);
-  const { data: initialValues, isLoading } = useGetSingleProject(id);
-  const { mutate } = useEditProject();
-  const { closeModal } = useProjectModal();
+  const projectId = useProjectIdInParam();
+  const { useGetItemById: useGetSingleProject, useEditItem: useEditProject } =
+    useProjectCURD();
+  const { data: initialValues, isLoading } = useGetSingleProject<Project>(
+    ["project", { id: projectId }],
+    projectId
+  );
+  const { mutate: editProject } = useEditProject();
 
   const onFinish = (values: any) => {
-    mutate({ id, ...values });
-    props.form.resetFields();
+    editProject({ id: projectId, ...values });
+    formInstance.resetFields();
     closeModal();
   };
 
   // 表单验证错误时取消 modal button loading
   const onFinishFailed = () => {
-    props.setConfirmLoading(false);
+    setConfirmLoading(false);
   };
 
   useEffect(() => {
-    props.form.setFieldsValue(initialValues);
-  }, [props.form, initialValues]);
+    formInstance.setFieldsValue(initialValues);
+  }, [formInstance, initialValues]);
 
   // 加载项目详情数据时同步 modal button loading
   useEffect(() => {
-    props.setConfirmLoading(isLoading);
-  }, [props, isLoading]);
+    setConfirmLoading(isLoading);
+  }, [setConfirmLoading, isLoading]);
 
   return (
     <Spin spinning={isLoading} delay={200}>
       <Form
+        form={formInstance}
         name="editProject"
         labelCol={{ span: 4 }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         preserve={false}
-        {...props}
       >
         <Form.Item label="项目名称" name="name" rules={[validateRules["name"]]}>
           <Input />

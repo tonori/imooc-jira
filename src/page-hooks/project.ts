@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import useHttp from "hooks/useHttp";
 import useUrlQueryParams from "hooks/useUrlQueryParam";
-import { cleanObject } from "utils";
 import useDebounce from "hooks/useDebounce";
-import useOptimisticOption from "../hooks/useOptimisticOption";
+import useCURD from "hooks/useCURD";
+
+import { cleanObject } from "utils";
+
 import { Project } from "types/project";
 
 export interface ProjectQueryParamProps {
@@ -49,83 +49,7 @@ export const useProjectQueryKey = () => {
   return ["projectList", cleanedParam];
 };
 
-// 获取 project list
-export const useGetProject = (params?: Partial<Project>) => {
-  const client = useHttp();
-  return useQuery<Project[]>(["projectList", params], () =>
-    client("/projects", { method: "GET", data: params })
-  );
-};
-
-// 获取单个 project
-export const useGetSingleProject = (id?: number) => {
-  const client = useHttp();
-  return useQuery<Project>(
-    ["project", { personId: id }],
-    () => client(`/projects/${id}`, { method: "GET" }),
-    {
-      enabled: !!id,
-    }
-  );
-};
-
-// 新增项目
-export const useAddProject = () => {
-  const client = useHttp();
-  const queryClient = useQueryClient();
+export const useProjectCURD = () => {
   const queryKey = useProjectQueryKey();
-
-  return useMutation(
-    (form: Partial<Project>) =>
-      client("/projects", {
-        method: "POST",
-        data: form,
-      }),
-    {
-      onSuccess: () => queryClient.invalidateQueries(queryKey),
-    }
-  );
-};
-
-// 编辑项目
-export const useEditProject = () => {
-  const client = useHttp();
-  const queryKey = useProjectQueryKey();
-
-  const mutationOptions = useOptimisticOption<Project>({
-    queryKey,
-    callback: (target, old) =>
-      old?.map((item) =>
-        item.id === target.id ? { ...item, ...target } : item
-      ) || [],
-  });
-
-  return useMutation(
-    (params: Partial<Project>) =>
-      client(`/projects/${params.id}`, {
-        method: "PATCH",
-        data: params,
-      }),
-    mutationOptions
-  );
-};
-
-// 删除项目
-export const useDeleteProject = () => {
-  const client = useHttp();
-  const queryKey = useProjectQueryKey();
-
-  const mutationOptions = useOptimisticOption<Project>({
-    queryKey,
-    callback: (target, old) =>
-      old?.filter((item) => item.id !== target.id) || [],
-  });
-
-  return useMutation(
-    (params: Partial<Project>) =>
-      client(`/projects/${params.id}`, {
-        method: "DELETE",
-      }),
-    mutationOptions
-  );
+  return useCURD<Project>({ queryKey, finalPoint: "/projects" });
 };

@@ -3,25 +3,32 @@ import BoardItem from "./BoardItem";
 import SearchPanel from "./SearchPanel";
 import SpinOutlined from "components/LoadingOutlined";
 import AddBoard from "./AddBoard";
+import EditTaskModal from "./EditTaskModal";
+import EditBoardModal from "./EditBoardModal";
 import { FlexColumn } from "styled-components/FlexLayout";
 import styled from "@emotion/styled";
 
 // Hooks
 import useDocumentTitle from "hooks/useDocumentTitle";
-import { useBoardParam, useGetBoards } from "page-hooks/boards";
-import { useGetSingleProject } from "page-hooks/project";
-import { useGetTasks } from "page-hooks/task";
+import { useBoardParam, useBoardsCURD } from "page-hooks/boards";
+import { useProjectCURD } from "page-hooks/project";
+import { useTaskCURD } from "page-hooks/task";
 import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
+
+import { Project } from "types/project";
 
 const Boards = () => {
   useDocumentTitle("任务看板");
 
   const [queryParam, cleanedQueryParam, setQueryParam] = useBoardParam();
+  const { useGetItem: useGetBoards } = useBoardsCURD();
+  const { useGetItem: useGetTasks } = useTaskCURD();
   const projectId = useProjectIdInParam();
 
   // 获取 project
+  const { useGetItemById: useGetProjectById } = useProjectCURD();
   const { data: currentProjectData, isLoading: getProjectLoading } =
-    useGetSingleProject(projectId);
+    useGetProjectById<Project>(["project", { id: projectId }], projectId);
   // 获取项目中的看板
   const { data: boardData, isLoading: getBoardLoading } = useGetBoards({
     projectId: projectId,
@@ -56,6 +63,8 @@ const Boards = () => {
           />
         ))}
         <AddBoard />
+        <EditTaskModal />
+        <EditBoardModal />
       </Container>
     </FlexColumn>
   );

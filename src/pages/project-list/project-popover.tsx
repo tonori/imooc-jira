@@ -4,11 +4,12 @@ import { Collapse, List, Popover } from "antd";
 import styled from "@emotion/styled";
 
 // Hooks
-import { useGetProject } from "page-hooks/project";
+import { useProjectCURD } from "page-hooks/project";
 
 const ProjectPopover = () => {
-  const { data: projects } = useGetProject({});
-  const pinnedProjects = projects?.filter((project) => project.pin);
+  const { useGetItem: useGetProject } = useProjectCURD();
+  const { data: projects } = useGetProject();
+  const pinnedProjects = projects?.filter((project) => project.pin) || [];
   const hasPinnedProjects = Boolean(pinnedProjects && pinnedProjects.length);
 
   const content = (
@@ -20,7 +21,7 @@ const ProjectPopover = () => {
           collapsible={hasPinnedProjects ? "header" : "disabled"}
         >
           <List size="small">
-            {pinnedProjects?.map((project) => (
+            {pinnedProjects.map((project) => (
               <List.Item key={project.id}>
                 <PinProjectListItem to={`/projects/${project.id}`}>
                   {project.name}

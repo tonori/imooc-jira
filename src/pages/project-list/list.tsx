@@ -7,16 +7,16 @@ import Pin from "components/pin";
 import dayjs from "dayjs";
 
 // Hooks
-import { useRouteMatch } from "react-router";
-import { useDeleteProject, useEditProject } from "page-hooks/project";
+import { useHistory, useRouteMatch } from "react-router";
+import { useProjectCURD } from "page-hooks/project";
 
 // Types
 import { TableProps } from "antd/es/table";
-
-// Utils
-import createDeleteProjectConfirm from "./deleteProjectConfirm";
 import { User } from "types/user";
 import { Project } from "types/project";
+
+// Utils
+import { deleteProjectConfirm } from "utils/createDeleteConfirm";
 
 interface ListProps extends TableProps<Project> {
   users: User[];
@@ -24,11 +24,25 @@ interface ListProps extends TableProps<Project> {
 }
 
 const List = ({ users, ...props }: ListProps) => {
+  const history = useHistory();
   const { url } = useRouteMatch();
-  const { mutate } = useEditProject();
+  const { useEditItem: useEditProject, useDeleteItem: useDeleteProject } =
+    useProjectCURD();
+  const { mutate: editProject } = useEditProject();
+  const { mutateAsync: deleteProject, isLoading: deleteLoading } =
+    useDeleteProject();
 
-  const switchPin = (id: number) => (pin: boolean) => mutate({ id, pin });
-  const { mutate: deleteProject } = useDeleteProject();
+  const switchPin = (id: number) => (pin: boolean) => editProject({ id, pin });
+
+  const deleteProjectButtonOnclick = (id: number, name: string) => {
+    history.push(`${url}/${id}/delete`);
+    deleteProjectConfirm(
+      name,
+      deleteLoading,
+      () => deleteProject(id),
+      () => history.replace("/projects")
+    );
+  };
 
   const columns = [
     {
@@ -77,12 +91,9 @@ const List = ({ users, ...props }: ListProps) => {
             <Button
               danger
               type="link"
-              onClick={() => {
-                createDeleteProjectConfirm(project.name, () => {
-                  deleteProject(project);
-                  return Promise.resolve();
-                });
-              }}
+              onClick={() =>
+                deleteProjectButtonOnclick(project.id, project.name)
+              }
             >
               删除
             </Button>

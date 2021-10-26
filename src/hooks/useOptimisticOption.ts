@@ -2,32 +2,28 @@
 import { QueryKey, useQueryClient } from "react-query";
 import { notification } from "antd";
 
-interface OptimisticOptionProps<T> {
+interface OptimisticOptionProps {
   queryKey: QueryKey;
-  callback: (target: Partial<T>, old?: T[]) => T[];
+  callback: (target: any, old?: any[]) => any[];
 }
 
-const useOptimisticOption = <T>({
-  queryKey,
-  callback,
-}: OptimisticOptionProps<T>) => {
+const useOptimisticOption = ({ queryKey, callback }: OptimisticOptionProps) => {
   const queryClient = useQueryClient();
   return {
-    onMutate: async (target: Partial<T>) => {
+    onMutate: async (target: any) => {
       await queryClient.cancelQueries(queryKey);
       // 保存前一次状态的快照
       const previousItems = queryClient.getQueryData(queryKey);
       // 乐观更新修改数据
-      queryClient.setQueryData(queryKey, (old?: T[]) => callback(target, old));
+      queryClient.setQueryData(queryKey, (old?: any[]) =>
+        callback(target, old)
+      );
       // 返回前一次状态的快照，以便发生错误时需要回滚所使用
       return { previousItems };
     },
     // 出错时，使用前一次状态的快照重新设置当前缓存数据
-    onError: (error: unknown, newItem: Partial<T>, context: unknown) => {
-      queryClient.setQueryData(
-        queryKey,
-        (context as { previousItems: T[] }).previousItems
-      );
+    onError: (error: any, newItem: any, context: any) => {
+      queryClient.setQueryData(queryKey, context.previousItems);
       notification.error({
         message: "数据更新时出现异常",
         description:

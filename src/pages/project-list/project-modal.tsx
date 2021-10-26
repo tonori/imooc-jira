@@ -5,17 +5,22 @@ import EditProjectForm from "./editProjectForm";
 
 // Hooks
 import { useMemo, useState } from "react";
-import useProjectModal from "hooks/useProjectModal";
+import useControlModal from "hooks/useControlModal";
 
 const ProjectModal = () => {
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalForm] = Form.useForm();
-  const { visible, action, closeModal } = useProjectModal();
+  const path = {
+    create: "/projects/create-project",
+    edit: "/projects/:projectId/edit",
+  };
 
   const actionModalTitle: { [key: string]: string } = {
     create: "新建项目",
     edit: "编辑项目",
   };
+
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalForm] = Form.useForm();
+  const { visible, action, closeModal } = useControlModal("/projects", path);
 
   const onOk = () => {
     modalForm.submit();
@@ -43,6 +48,7 @@ const ProjectModal = () => {
           <CreateProjectForm
             form={modalForm}
             setConfirmLoading={setConfirmLoading}
+            closeModal={closeModal}
           />
         );
       case "edit":
@@ -50,10 +56,11 @@ const ProjectModal = () => {
           <EditProjectForm
             form={modalForm}
             setConfirmLoading={setConfirmLoading}
+            closeModal={closeModal}
           />
         );
     }
-  }, [modalForm, action]);
+  }, [closeModal, modalForm, action]);
 
   return <Modal {...modalProps}>{activeComponent}</Modal>;
 };

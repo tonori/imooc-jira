@@ -2,7 +2,10 @@ import { FormInstance, FormProps } from "antd";
 
 import { Dispatch, SetStateAction } from "react";
 
-export interface ModalFormProps extends Exclude<FormProps, "form"> {
+interface ModalFormProps extends Exclude<FormProps, "form"> {
   form: FormInstance;
   setConfirmLoading: Dispatch<SetStateAction<boolean>>;
+  closeModal: () => void;
 }
+
+export default ModalFormProps;
