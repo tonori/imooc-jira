@@ -1,18 +1,20 @@
 // Components
 import { Link } from "react-router-dom";
 import { Title } from "unauthenticated-app";
-import { Form, Input, Button } from "antd";
+import { Button, Form, Input } from "antd";
 
 // Hooks
 import useAuth from "hooks/useAuth";
 import useAsync from "hooks/useAsync";
+import { useHistory } from "react-router";
 
 const LoginScreen = () => {
+  const history = useHistory();
   const { login } = useAuth();
   const { run, isPending } = useAsync();
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    run(login(values));
+    run(login(values)).then(() => history.replace("/"));
   };
 
   return (

@@ -52,7 +52,7 @@ const ProjectListScreen = () => (
     <Route exact path="/projects/:projectId/delete" component={ProjectList} />
     {/*项目详情（看板、任务组）*/}
     <Route path="/projects/:projectId" component={Project} />
-    <Route path="/projects" component={ProjectList} />
+    <Route path="" component={ProjectList} />
   </Switch>
 );
 

@@ -2,13 +2,7 @@
 import Boards from "pages/boards";
 import TaskGroup from "pages/task-group";
 import { Layout, Menu } from "antd";
-import {
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from "react-router";
+import { Route, Switch, useLocation, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 import {
   Content,
@@ -18,6 +12,7 @@ import {
 
 // Hooks
 import { useMemo } from "react";
+import DefaultRouteNavigation from "../../components/DefaultRouteNavigation";
 
 const SubMenu = () => {
   const { Sider } = Layout;
@@ -45,7 +40,6 @@ const SubMenu = () => {
 
 const Project = () => {
   const { url, path } = useRouteMatch();
-  const history = useHistory();
   return (
     <FlexRowMain>
       <SubMenu />
@@ -58,10 +52,7 @@ const Project = () => {
             <Route path={`${path}/task-group`} component={TaskGroup} />
             <Route
               path={url}
-              render={() => {
-                history.replace(`${url}/boards`);
-                return <div>加载中...</div>;
-              }}
+              render={() => <DefaultRouteNavigation to={`${url}/boards`} />}
             />
           </Switch>
         </Content>

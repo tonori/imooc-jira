@@ -1,16 +1,18 @@
 // Components
 import { Link } from "react-router-dom";
 import { Title } from "unauthenticated-app";
-import { Form, Input, Button } from "antd";
+import { Button, Form, Input } from "antd";
 
 // Hooks
 import useAuth from "hooks/useAuth";
 import useAsync from "hooks/useAsync";
+import { useHistory } from "react-router";
 
 // Type
 import { Rule } from "antd/es/form";
 
 const RegisterScreen = () => {
+  const history = useHistory();
   const { register } = useAuth();
   const { run, isPending } = useAsync();
 
@@ -30,7 +32,7 @@ const RegisterScreen = () => {
     username: string;
     password: string;
   }) => {
-    run(register({ username, password }));
+    run(register({ username, password })).then(() => history.replace("/"));
   };
 
   return (
