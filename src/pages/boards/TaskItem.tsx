@@ -10,7 +10,7 @@ const TaskItem = ({ task }: { task: Task }) => (
       <p style={{ marginBottom: 0 }}>{task.name}</p>
       <TaskTypeIcon id={task.typeId} />
     </TaskInfo>
-    <TaskAction taskId={task.id} />
+    <TaskAction task={task} />
   </Card>
 );
 export default TaskItem;

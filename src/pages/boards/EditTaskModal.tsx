@@ -21,7 +21,7 @@ const EditTaskModal = () => {
     ["board", { id: boardId }],
     boardId
   );
-  const { mutateAsync, isLoading: mutateLoading } = useEditTask();
+  const { mutate, isLoading: mutateLoading } = useEditTask();
   const isLoading = getLoading || mutateLoading;
 
   const [formInstance] = Form.useForm();
@@ -29,11 +29,10 @@ const EditTaskModal = () => {
     !getLoading && formInstance.setFieldsValue(data);
   });
 
-  const onFinish = (values: any) =>
-    mutateAsync({ id: boardId, ...values }).then(() => {
-      formInstance.resetFields();
-      closeModal();
-    });
+  const onFinish = (values: any) => {
+    mutate({ id: boardId, ...values });
+    closeModal();
+  };
 
   const history = useHistory();
   const projectId = useProjectIdInParam();

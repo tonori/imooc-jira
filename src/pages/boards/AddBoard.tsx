@@ -14,7 +14,7 @@ const AddBoard = () => {
   const [error, setError] = useState("");
   const projectId = useProjectIdInParam();
 
-  const onSearch = () => {
+  const onSubmit = () => {
     if (inputValue === "") {
       setError("任务看板名称不能为空");
     } else {
@@ -28,14 +28,13 @@ const AddBoard = () => {
   return (
     <BoardContainer>
       <SubmitInput
-        allowClear
         placeholder="新建任务看板"
         loading={isLoading}
         value={inputValue}
         onChange={(e) => {
           setInputValue(e.target.value);
         }}
-        onSearch={onSearch}
+        onSubmit={onSubmit}
       />
       <Typography.Text type="danger" style={{ fontSize: "13px" }}>
         {error}

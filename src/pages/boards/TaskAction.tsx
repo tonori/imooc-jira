@@ -14,32 +14,30 @@ const TaskActionContainer = styled.div`
   }
 `;
 
-const TaskAction = ({ taskId }: { taskId: number }) => {
+const TaskAction = ({ task }: { task: Task }) => {
   const history = useHistory();
   const projectId = useProjectIdInParam();
-  const { useDeleteItem, useGetItemById } = useTaskCURD();
+  const { useDeleteItem } = useTaskCURD();
 
-  const { data: task, isLoading: getLoading } = useGetItemById<Task>(
-    ["task", { id: taskId }],
-    taskId
-  );
-  const { mutateAsync, isLoading: mutateLoading } = useDeleteItem();
-  const loading = getLoading || mutateLoading;
+  const { mutate, isLoading } = useDeleteItem();
 
   const deleteButtonOnClick = () => {
-    const onOk = () => mutateAsync(taskId);
+    const onOk = () => {
+      mutate(task.id);
+      onCancel();
+    };
     const onCancel = () => history.replace(`/projects/${projectId}/boards`);
 
-    history.push(`/projects/${projectId}/task/${taskId}/delete`);
-    deleteTaskConfirm(task?.name || "", loading, onOk, onCancel);
+    history.push(`/projects/${projectId}/task/${task.id}/delete`);
+    deleteTaskConfirm(task.name, isLoading, onOk, onCancel);
   };
 
   return (
     <TaskActionContainer>
-      <Link to={`/projects/${projectId}/task/${taskId}/edit`}>
+      <Link to={`/projects/${projectId}/task/${task.id}/edit`}>
         <Button size="small" icon={<EditOutlined />} />
       </Link>
-      <Link to={`/projects/${projectId}/task/${taskId}/delete`}>
+      <Link to={`/projects/${projectId}/task/${task.id}/delete`}>
         <Button
           danger
           size="small"

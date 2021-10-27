@@ -16,7 +16,7 @@ const AddTask = ({ boardId }: { boardId: number }) => {
 
   const enterButton = useMemo(() => {
     if (isLoading) {
-      return "";
+      return isLoading;
     } else if (inputValue === "" || !inputValue) {
       return <RollbackOutlined />;
     } else {
@@ -24,7 +24,7 @@ const AddTask = ({ boardId }: { boardId: number }) => {
     }
   }, [inputValue, isLoading]);
 
-  const onSearch = (value: string) => {
+  const onSubmit = (value: string) => {
     // 在不输入内容时点击按钮则切换回按钮形态
     if (value === "") {
       setState("button");
@@ -48,12 +48,13 @@ const AddTask = ({ boardId }: { boardId: number }) => {
 
   const addTaskInput = (
     <SubmitInput
+      allowClear={!isLoading}
       placeholder="请输入任务名称"
       loading={isLoading}
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
       enterButton={enterButton}
-      onSearch={onSearch}
+      onSubmit={onSubmit}
     />
   );
 

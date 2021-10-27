@@ -4,15 +4,17 @@ import { EnterOutlined } from "@ant-design/icons";
 
 import { SearchProps } from "antd/es/input";
 
-interface Props extends Omit<SearchProps, "onSearch" | "loading"> {
+interface Props extends Omit<SearchProps, "onSearch" | "loading" | "onSubmit"> {
   loading: SearchProps["loading"];
-  onSearch: SearchProps["onSearch"];
+  onSubmit: SearchProps["onSearch"];
 }
 
-const SubmitInput = (props: Props) => (
+const SubmitInput = ({ loading, onSubmit, ...props }: Props) => (
   <Input
-    allowClear
-    enterButton={props.loading ? "" : <EnterOutlined />}
+    loading={loading}
+    allowClear={!loading}
+    enterButton={loading || <EnterOutlined />}
+    onSearch={onSubmit}
     {...props}
   />
 );
