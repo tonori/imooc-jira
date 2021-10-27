@@ -44,13 +44,10 @@ const AuthenticatedAppHeader = () => {
       <HeaderLeft>
         <Button
           type="link"
+          style={{ padding: 0 }}
           onClick={() => (window.location.href = window.location.origin)}
         >
-          <SoftwareLogo
-            width="18rem"
-            color="rbg(38, 132, 255)"
-            style={{ padding: 0 }}
-          />
+          <SoftwareLogo width="18rem" color="rbg(38, 132, 255)" />
         </Button>
         <h3>
           <ProjectPopover />
