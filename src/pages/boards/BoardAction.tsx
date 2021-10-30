@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Board } from "types/boards";
 import { useHistory, useRouteMatch } from "react-router";
-import { useBoardsCURD } from "../../page-hooks/boards";
+import { useBoardCURD } from "../../page-hooks/boards";
 import { deleteBoardConfirm } from "utils/createDeleteConfirm";
 import { useProjectIdInParam } from "../../page-hooks/useProjectIdInParam";
 
@@ -11,7 +11,7 @@ const BoardAction = ({ board }: { board: Board }) => {
   const history = useHistory();
   const projectId = useProjectIdInParam();
   const { url } = useRouteMatch();
-  const { useDeleteItem } = useBoardsCURD();
+  const { useDeleteItem } = useBoardCURD();
   const { mutate, isLoading } = useDeleteItem();
 
   const deleteButtonOnClick = () => {

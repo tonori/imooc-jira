@@ -9,8 +9,8 @@ import { BoardParamProps } from "page-hooks/boards";
 import { selectValueToNumber } from "utils";
 
 interface SearchPanelProps {
-  queryParam: BoardParamProps;
-  setQueryParam: (param: SearchPanelProps["queryParam"]) => void;
+  taskParams: BoardParamProps;
+  setTaskQueryParams: (param: SearchPanelProps["taskParams"]) => void;
 }
 
 const Container = styled.div`
@@ -24,9 +24,9 @@ const Container = styled.div`
   }
 `;
 
-const SearchPanel = ({ queryParam, setQueryParam }: SearchPanelProps) => {
+const SearchPanel = ({ taskParams, setTaskQueryParams }: SearchPanelProps) => {
   const reset = () => {
-    setQueryParam({
+    setTaskQueryParams({
       name: undefined,
       typeId: undefined,
       processorId: undefined,
@@ -37,23 +37,28 @@ const SearchPanel = ({ queryParam, setQueryParam }: SearchPanelProps) => {
       <Input
         style={{ width: "20rem" }}
         placeholder="任务名"
-        value={queryParam.name}
-        onChange={(e) => setQueryParam({ ...queryParam, name: e.target.value })}
+        value={taskParams.name}
+        onChange={(e) =>
+          setTaskQueryParams({ ...taskParams, name: e.target.value })
+        }
       />
 
       <ProjectUserSelect
-        value={queryParam.processorId}
+        value={taskParams.processorId}
         onChange={(value) =>
-          setQueryParam({
-            ...queryParam,
+          setTaskQueryParams({
+            ...taskParams,
             processorId: selectValueToNumber(value),
           })
         }
       />
       <TaskTypeSelect
-        value={queryParam.typeId || undefined}
+        value={taskParams.typeId || undefined}
         onChange={(value) =>
-          setQueryParam({ ...queryParam, typeId: selectValueToNumber(value) })
+          setTaskQueryParams({
+            ...taskParams,
+            typeId: selectValueToNumber(value),
+          })
         }
       />
       <Button onClick={reset}>重置</Button>

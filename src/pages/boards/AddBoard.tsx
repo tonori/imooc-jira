@@ -4,15 +4,17 @@ import { Container as BoardContainer } from "./BoardItem";
 import { Typography } from "antd";
 // Hooks
 import { useState } from "react";
-import { useBoardsCURD } from "page-hooks/boards";
+import { useBoardCURD } from "page-hooks/boards";
 import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
+import useHasQueryParams from "hooks/useHasQueryParams";
 
 const AddBoard = () => {
-  const { useAddItem: useAddBoard } = useBoardsCURD();
+  const { useAddItem: useAddBoard } = useBoardCURD();
   const { mutateAsync: addBoard, isLoading } = useAddBoard();
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
   const projectId = useProjectIdInParam();
+  const hasQueryParam = useHasQueryParams();
 
   const onSubmit = () => {
     if (inputValue === "") {
@@ -26,7 +28,7 @@ const AddBoard = () => {
   };
 
   return (
-    <BoardContainer>
+    <BoardContainer style={{ display: hasQueryParam ? "none" : "block" }}>
       <SubmitInput
         placeholder="新建任务看板"
         loading={isLoading}

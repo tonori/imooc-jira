@@ -42,23 +42,17 @@ const ProjectModal = () => {
   };
 
   const activeComponent = useMemo(() => {
+    const props = {
+      form: modalForm,
+      setConfirmLoading,
+      closeModal,
+    };
+
     switch (action) {
       case "create":
-        return (
-          <CreateProjectForm
-            form={modalForm}
-            setConfirmLoading={setConfirmLoading}
-            closeModal={closeModal}
-          />
-        );
+        return <CreateProjectForm {...props} />;
       case "edit":
-        return (
-          <EditProjectForm
-            form={modalForm}
-            setConfirmLoading={setConfirmLoading}
-            closeModal={closeModal}
-          />
-        );
+        return <EditProjectForm {...props} />;
     }
   }, [closeModal, modalForm, action]);
 

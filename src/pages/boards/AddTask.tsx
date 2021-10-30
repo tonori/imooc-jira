@@ -2,9 +2,10 @@ import SubmitInput from "./SubmitInput";
 import { Button } from "antd";
 import { EnterOutlined, RollbackOutlined } from "@ant-design/icons";
 
-import { useMemo, useState } from "react";
+import { cloneElement, useMemo, useState } from "react";
 import { useTaskCURD } from "page-hooks/task";
 import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
+import useHasQueryParams from "hooks/useHasQueryParams";
 
 const AddTask = ({ boardId }: { boardId: number }) => {
   const [state, setState] = useState<"button" | "input">("button");
@@ -13,10 +14,11 @@ const AddTask = ({ boardId }: { boardId: number }) => {
   const { useAddItem: useAddTask } = useTaskCURD();
   const { mutateAsync: addTask, isLoading } = useAddTask();
   const projectId = useProjectIdInParam();
+  const hasQueryParam = useHasQueryParams();
 
   const enterButton = useMemo(() => {
     if (isLoading) {
-      return isLoading;
+      return <span />;
     } else if (inputValue === "" || !inputValue) {
       return <RollbackOutlined />;
     } else {
@@ -58,7 +60,9 @@ const AddTask = ({ boardId }: { boardId: number }) => {
     />
   );
 
-  return state === "button" ? addTaskButton : addTaskInput;
+  return cloneElement(state === "button" ? addTaskButton : addTaskInput, {
+    style: { display: hasQueryParam ? "none" : "block" },
+  });
 };
 
 export default AddTask;

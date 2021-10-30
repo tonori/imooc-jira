@@ -13,7 +13,7 @@ const SubmitInput = ({ loading, onSubmit, ...props }: Props) => (
   <Input
     loading={loading}
     allowClear={!loading}
-    enterButton={loading || <EnterOutlined />}
+    enterButton={loading ? <span /> : <EnterOutlined />}
     onSearch={onSubmit}
     {...props}
   />

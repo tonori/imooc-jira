@@ -1,6 +1,6 @@
 import { Form, FormProps, Input, Modal, ModalProps, Spin } from "antd";
 import { useHistory, useRouteMatch } from "react-router";
-import { useBoardsCURD } from "page-hooks/boards";
+import { useBoardCURD } from "page-hooks/boards";
 import { useEffect, useMemo } from "react";
 import { useProjectIdInParam } from "page-hooks/useProjectIdInParam";
 import { Board } from "types/boards";
@@ -10,7 +10,7 @@ const EditBoardModal = () => {
   const boardId = Number(params.boardId) || undefined;
 
   const { useGetItemById: useGetBoardById, useEditItem: useEditBoard } =
-    useBoardsCURD();
+    useBoardCURD();
   const { data, isLoading: getLoading } = useGetBoardById<Board>(
     ["board", { id: boardId }],
     boardId
