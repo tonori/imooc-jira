@@ -49,7 +49,8 @@ const Project = () => {
             <Route path={`${path}/boards`} component={Boards} />
             <Route path={`${path}/board/:boardId/*`} component={Boards} />
             <Route path={`${path}/task/:taskId/*`} component={Boards} />
-            <Route path={`${path}/task-group`} component={TaskGroup} />
+            <Route exact path={`${path}/task-group`} component={TaskGroup} />
+            <Route path={`${path}/task-group/*`} component={TaskGroup} />
             <Route
               path={url}
               render={() => <DefaultRouteNavigation to={`${url}/boards`} />}

@@ -12,7 +12,7 @@ const BoardAction = ({ board }: { board: Board }) => {
   const projectId = useProjectIdInParam();
   const { url } = useRouteMatch();
   const { useDeleteItem } = useBoardCURD();
-  const { mutate, isLoading } = useDeleteItem();
+  const { mutate } = useDeleteItem();
 
   const deleteButtonOnClick = () => {
     history.push(`${url}/${board.id}/delete`);
@@ -21,7 +21,7 @@ const BoardAction = ({ board }: { board: Board }) => {
       onCancel();
     };
     const onCancel = () => history.replace(`${url}`);
-    deleteBoardConfirm(board.name, isLoading, onOk, onCancel);
+    deleteBoardConfirm(board.name, onOk, onCancel);
   };
 
   const actions = (

@@ -29,8 +29,7 @@ const List = ({ users, ...props }: ListProps) => {
   const { useEditItem: useEditProject, useDeleteItem: useDeleteProject } =
     useProjectCURD();
   const { mutate: editProject } = useEditProject();
-  const { mutateAsync: deleteProject, isLoading: deleteLoading } =
-    useDeleteProject();
+  const { mutateAsync: deleteProject } = useDeleteProject();
 
   const switchPin = (id: number) => (pin: boolean) => editProject({ id, pin });
 
@@ -38,7 +37,6 @@ const List = ({ users, ...props }: ListProps) => {
     history.push(`${url}/${id}/delete`);
     deleteProjectConfirm(
       name,
-      deleteLoading,
       () => deleteProject(id),
       () => history.replace("/projects")
     );

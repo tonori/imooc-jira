@@ -52,7 +52,6 @@ const AuthenticatedAppHeader = () => {
         <h3>
           <ProjectPopover />
         </h3>
-        <h3>用户</h3>
       </HeaderLeft>
       <Dropdown overlay={menu}>
         <Button type="link" onClick={(e) => e.preventDefault()}>

@@ -19,7 +19,7 @@ const TaskAction = ({ task }: { task: Task }) => {
   const projectId = useProjectIdInParam();
   const { useDeleteItem } = useTaskCURD();
 
-  const { mutate, isLoading } = useDeleteItem();
+  const { mutate } = useDeleteItem();
 
   const deleteButtonOnClick = () => {
     const onOk = () => {
@@ -29,7 +29,7 @@ const TaskAction = ({ task }: { task: Task }) => {
     const onCancel = () => history.replace(`/projects/${projectId}/boards`);
 
     history.push(`/projects/${projectId}/task/${task.id}/delete`);
-    deleteTaskConfirm(task.name, isLoading, onOk, onCancel);
+    deleteTaskConfirm(task.name, onOk, onCancel);
   };
 
   return (
