@@ -66,6 +66,7 @@ const TaskGroup = () => {
       if (!_tasks.length) return "该任务组下没有任务";
       return _tasks.map((task) => (
         <NavLink
+          key={task.id}
           className="d-block"
           to={`/projects/${projectId}/task/${task.id}/edit`}
         >
