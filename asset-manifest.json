@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/imooc-jira/static/css/main.b1024eec.chunk.css",
-    "main.js": "/imooc-jira/static/js/main.20cd930b.chunk.js",
-    "main.js.map": "/imooc-jira/static/js/main.20cd930b.chunk.js.map",
+    "main.js": "/imooc-jira/static/js/main.6b532b36.chunk.js",
+    "main.js.map": "/imooc-jira/static/js/main.6b532b36.chunk.js.map",
     "runtime-main.js": "/imooc-jira/static/js/runtime-main.199bb197.js",
     "runtime-main.js.map": "/imooc-jira/static/js/runtime-main.199bb197.js.map",
-    "static/css/2.4ddacf8e.chunk.css": "/imooc-jira/static/css/2.4ddacf8e.chunk.css",
-    "static/js/2.b7940308.chunk.js": "/imooc-jira/static/js/2.b7940308.chunk.js",
-    "static/js/2.b7940308.chunk.js.map": "/imooc-jira/static/js/2.b7940308.chunk.js.map",
+    "static/css/2.66631481.chunk.css": "/imooc-jira/static/css/2.66631481.chunk.css",
+    "static/js/2.aea1fe57.chunk.js": "/imooc-jira/static/js/2.aea1fe57.chunk.js",
+    "static/js/2.aea1fe57.chunk.js.map": "/imooc-jira/static/js/2.aea1fe57.chunk.js.map",
     "index.html": "/imooc-jira/index.html",
-    "static/css/2.4ddacf8e.chunk.css.map": "/imooc-jira/static/css/2.4ddacf8e.chunk.css.map",
+    "static/css/2.66631481.chunk.css.map": "/imooc-jira/static/css/2.66631481.chunk.css.map",
     "static/css/main.b1024eec.chunk.css.map": "/imooc-jira/static/css/main.b1024eec.chunk.css.map",
-    "static/js/2.b7940308.chunk.js.LICENSE.txt": "/imooc-jira/static/js/2.b7940308.chunk.js.LICENSE.txt",
+    "static/js/2.aea1fe57.chunk.js.LICENSE.txt": "/imooc-jira/static/js/2.aea1fe57.chunk.js.LICENSE.txt",
     "static/media/left.e74de3ec.svg": "/imooc-jira/static/media/left.e74de3ec.svg",
     "static/media/logo.6c866125.svg": "/imooc-jira/static/media/logo.6c866125.svg",
     "static/media/right.b423a6cf.svg": "/imooc-jira/static/media/right.b423a6cf.svg",
@@ -19,9 +19,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.199bb197.js",
-    "static/css/2.4ddacf8e.chunk.css",
-    "static/js/2.b7940308.chunk.js",
+    "static/css/2.66631481.chunk.css",
+    "static/js/2.aea1fe57.chunk.js",
     "static/css/main.b1024eec.chunk.css",
-    "static/js/main.20cd930b.chunk.js"
+    "static/js/main.6b532b36.chunk.js"
   ]
 }
