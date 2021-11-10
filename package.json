@@ -2,6 +2,7 @@
   "name": "jira",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/imooc-jira",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.3.0",
@@ -19,7 +20,8 @@
     "craco-less": "^1.20.0",
     "dayjs": "^1.10.7",
     "eslint-config-prettier": "^8.3.0",
-    "jira-dev-tool": "^1.6.59",
+    "gh-pages": "^3.2.3",
+    "jira-dev-tool": "^1.7.61",
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
@@ -36,7 +38,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "gh-pages -d build -r git@github.com:tonori/imooc-jira.git -b production"
   },
   "eslintConfig": {
     "extends": [
