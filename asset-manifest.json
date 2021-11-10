@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/imooc-jira/static/css/main.b1024eec.chunk.css",
-    "main.js": "/imooc-jira/static/js/main.ac91a37f.chunk.js",
-    "main.js.map": "/imooc-jira/static/js/main.ac91a37f.chunk.js.map",
+    "main.js": "/imooc-jira/static/js/main.5d12d782.chunk.js",
+    "main.js.map": "/imooc-jira/static/js/main.5d12d782.chunk.js.map",
     "runtime-main.js": "/imooc-jira/static/js/runtime-main.199bb197.js",
     "runtime-main.js.map": "/imooc-jira/static/js/runtime-main.199bb197.js.map",
-    "static/css/2.66631481.chunk.css": "/imooc-jira/static/css/2.66631481.chunk.css",
+    "static/css/2.4ddacf8e.chunk.css": "/imooc-jira/static/css/2.4ddacf8e.chunk.css",
     "static/js/2.9f3b902f.chunk.js": "/imooc-jira/static/js/2.9f3b902f.chunk.js",
     "static/js/2.9f3b902f.chunk.js.map": "/imooc-jira/static/js/2.9f3b902f.chunk.js.map",
     "index.html": "/imooc-jira/index.html",
-    "static/css/2.66631481.chunk.css.map": "/imooc-jira/static/css/2.66631481.chunk.css.map",
+    "static/css/2.4ddacf8e.chunk.css.map": "/imooc-jira/static/css/2.4ddacf8e.chunk.css.map",
     "static/css/main.b1024eec.chunk.css.map": "/imooc-jira/static/css/main.b1024eec.chunk.css.map",
     "static/js/2.9f3b902f.chunk.js.LICENSE.txt": "/imooc-jira/static/js/2.9f3b902f.chunk.js.LICENSE.txt",
     "static/media/left.e74de3ec.svg": "/imooc-jira/static/media/left.e74de3ec.svg",
@@ -19,9 +19,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.199bb197.js",
-    "static/css/2.66631481.chunk.css",
+    "static/css/2.4ddacf8e.chunk.css",
     "static/js/2.9f3b902f.chunk.js",
     "static/css/main.b1024eec.chunk.css",
-    "static/js/main.ac91a37f.chunk.js"
+    "static/js/main.5d12d782.chunk.js"
   ]
 }
